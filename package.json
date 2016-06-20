@@ -1,0 +1,30 @@
+{
+  "name": "sayitlikeme",
+  "version": "0.0.1",
+  "description": "Pronounce names like their owners do",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omidfi/sayitlikeme.git"
+  },
+  "author": "Omid Hezaveh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omidfi/sayitlikeme/issues"
+  },
+  "homepage": "https://github.com/omidfi/sayitlikeme#readme",
+  "devDependencies": {
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "react-dom": "^15.1.0",
+    "webpack": "^1.13.1"
+  },
+  "dependencies": {
+    "react": "^15.1.0"
+  }
+}
