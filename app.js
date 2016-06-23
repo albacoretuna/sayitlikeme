@@ -11,6 +11,6 @@ mongoose.connect(connectionString);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use('/api', users); //This is our route middleware
+app.use('/', users); //This is our route middleware
 
 module.exports = app;

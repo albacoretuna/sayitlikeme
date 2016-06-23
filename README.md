@@ -26,3 +26,5 @@
     "date": "2016-06-22",
     "lastUpdated": "23423423423423"
 }
+### Mongoose instructions from
+https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications

@@ -1,21 +1,22 @@
+/* router/users.js */
 var User = require('../models/user');
 var express = require('express');
 var router = express.Router();
 
-router.route('/users').get(function(req, res) {
-    User.find(function(err, movies) {
+router.route('/:twitterhandle').get(function(req, res) {
+    User.find({twitterId:req.params.twitterhandle}, function(err, users) {
         if (err) {
             return res.send(err);
         }
 
-        res.json(movies);
+        res.json(users);
     });
 });
 
-router.route('/users').post(function(req, res) {
+router.route('/').post(function(req, res) {
     var user = new User(req.body);
 
-    movie.save(function(err) {
+    user.save(function(err) {
         if(err) {
             return res.send(err);
         }
