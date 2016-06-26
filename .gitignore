@@ -1,3 +1,4 @@
 node_modules
 *.swp
 bundle.js
+npm-debug.log

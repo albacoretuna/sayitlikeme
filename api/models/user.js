@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    twitterId: String,
+    twitterId: { type: String, index: { unique: true }, lowercase: true, trim: true},
     recordingPath: String,
     name: String,
     nameClarification: String, 
