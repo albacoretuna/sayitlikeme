@@ -1,16 +1,22 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var users = require('./routes/users'); //routes are defined here
-var app = express(); //Create the Express app
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
-var dbName = 'usersDb';
-var connectionString = 'mongodb://localhost:27017/' + dbName;
+//routes are defined here
+const users = require('./routes/users'); 
+
+//Create the Express app
+const app = express(); 
+
+const dbName = 'usersDb';
+const connectionString = 'mongodb://localhost:27017/' + dbName;
 
 mongoose.connect(connectionString);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use('/', users); //This is our route middleware
+
+//This is our route middleware
+app.use('/', users); 
 
 module.exports = app;
