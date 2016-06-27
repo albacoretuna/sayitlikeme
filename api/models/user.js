@@ -18,7 +18,6 @@ userSchema.pre('findOneAndUpdate', function(next) {
 
     // change the updated_at field to current date
     this.findOneAndUpdate({}, { updated_at: currentDate });
-    console.log(this);
 
     next();
 });
