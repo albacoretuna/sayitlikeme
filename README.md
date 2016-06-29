@@ -15,9 +15,13 @@ Now send the link to anyone who has a hard time calling you!
   * map url/username to pages for each user
 
 ## Components
-  * Login component 
-  * Add recording
-  * Show user component
-  * Search Component
-### Mongoose instructions from
+### First phase
+  * Login 
+  * User page (only with written instruction for pronouncation)  
+  * Search 
+
+### Second Phase
+  * Recording
+
+## Mongoose instructions from
 https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
