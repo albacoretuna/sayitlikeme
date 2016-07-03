@@ -1,18 +1,17 @@
 # sayitlike.me
 Are you annoyed by those who can't pronounce your name the way you like it?
-Do you get sad when you can't call someone's name with grace? I am. I live
-in another country, and both my first name and last name are unfamiliar to
-too many that I know. Sayitlike.me is an open source response to that problem.
+Do you get sad when you can't call someone's name with grace?.  
+Sayitlike.me is an open source effort to solve that problem.
 
-Login with your twitter account, record your name, and you'll get a personal URL
+Users can login with their twitter account, record their name, and they'll get a personal URL
 like this:
 http://sayitlike.me/YourTwitterHandle
 
-Now send the link to anyone who has a hard time calling you!
+That URL can be shared with anyone that need to know how to pronounce the name.
 
-# The rest is just my development notes
+## The rest is just development notes
 ## User stories
-  * map url/username to pages for each user
+  * map sayitlike.me/twitterhandle to a page for @twitterhandle on twitter containing an audio recording of the name
 
 ## Components
 ### First phase
@@ -21,7 +20,11 @@ Now send the link to anyone who has a hard time calling you!
   * Search
 
 ### Second Phase
-  * Recording
+  * Recordings need to be added to users pages
 
 ## Mongoose instructions from
 https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
+
+## Should we swtich to neDB?
+NeDB is a simple embedded data store that can be used instead of MongoDB in small apps.
+Benefit of using that is easier project setup as no mongodb will be needed. 
