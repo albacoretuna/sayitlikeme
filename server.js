@@ -21,6 +21,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
 //This is our route middleware
-app.use('/', users); 
-
+app.use('/api-/', users); 
+app.use('/public-/', express.static(__dirname + '/public-'));
+app.use('*',function(req,res) {
+    res.sendFile(__dirname +'/app/index.html');
+}); 
 module.exports = app;

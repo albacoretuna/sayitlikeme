@@ -22,7 +22,7 @@ const App = React.createClass({
         });
     },
     componentDidMount() {
-        axios.get('http://localhost:8000/omidfi')
+        axios.get('http://localhost:8000/api-/omidfi')
              .then( data => {
                  console.log('response is back', data);
                  this.showUser(data.data[0]);

@@ -28,3 +28,9 @@ https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
 ## Should we swtich to neDB?
 NeDB is a simple embedded data store that can be used instead of MongoDB in small apps.
 Benefit of using that is easier project setup as no mongodb will be needed. 
+
+## Routing 
+Requirements
+  * all sayitlike.me/twitterHandle, need to be routed to app/index.html 
+  * all sayitlike.me/api-/twitterHandle, need to return JSON, containging user info
+  * all static files need to be served from /public as such 
