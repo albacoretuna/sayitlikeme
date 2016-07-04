@@ -2,6 +2,11 @@ const React = require('react');
 const ReactDom = require('react-dom');
 const axios = require('axios');
 
+const Profile = require('./profile.js')
+
+import { Router, Route, hashHistory } from 'react-router'
+
+
 const App = React.createClass({
     getInitialState() {
         return {
@@ -29,19 +34,24 @@ const App = React.createClass({
              });
     },
     render() {
-        return <div>
+        return 
+            <Router history={hashHistory}>
+                <Route path="/" component={App}/>
+                <Route path="/testing" component={Profile}/>
+               <div>
                   {console.log('this.state', this.state)}
                   <h1> Say It Like Me!</h1>
                   <Description description="I know how it's pronounced!"/>
-                  <User userInfo={this.state.userInfo}/>
                   <Search/>
                   <Login />
                   <Recorder />
                </div>;
+             </Router>     
     }
 });
 
 
+/* <Profile userInfo={this.state.userInfo}/> */
 const Search = (props) => <div>
                               <h2>Search:</h2>
                               <input type="text"/>
@@ -51,13 +61,6 @@ const Login = (props) => <div>
                              <h2>Login With Twitter </h2>
                              <button> Login </button>
                          </div>;
-const User = (props) => <div>
-                            {console.log('user props.userInfo', props.userInfo)}
-                            <h1>My name is  <b> {props.userInfo.name}</b></h1>
-                            <h2>My twitter handle is  <b> {props.userInfo.twitterId}</b></h2>
-                            <p>Please call me like this: {props.userInfo.nameClarification}</p>
-                            <span>Play</span>
-                        </div>;
 const Recorder = (props) => <div>
                                 <h1> Record the name </h1>
                                 <div>Record</div>
