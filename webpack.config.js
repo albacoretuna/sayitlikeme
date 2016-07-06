@@ -12,7 +12,7 @@ module: {
       exclude: /(node_modules)/,
       loader: 'babel', // 'babel-loader' is also a legal name to reference
       query: {
-        presets: ['react']
+        presets: ['react', 'es2015']
       }
     }
   ]
