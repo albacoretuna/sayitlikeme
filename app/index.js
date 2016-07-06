@@ -1,22 +1,9 @@
-const React = require('react');
-const ReactDom = require('react-dom');
-const axios = require('axios');
-
+import React from 'react';
+import ReactDom from 'react-dom';
+import axios from 'axios';
 import { Router, Route, browserHistory} from 'react-router';
 
 
-/*
-
-               <div>
-                  {console.log('this.state', this.state)}
-                  <h1> Say It Like Me!</h1>
-                  <Description description="I know how it's pronounced!"/>
-                  <Search/>
-                  <Login />
-                  <Recorder />
-               </div>;
-*/
-/* <Profile userInfo={this.state.userInfo}/> */
 const Search = (props) => <div>
                               <h2>Search:</h2>
                               <input type="text"/>
@@ -53,7 +40,8 @@ const Profile = React.createClass({
         });
     },
     componentDidMount() {
-        axios.get('http://localhost:8000/api-/omidfi')
+        let userName = this.props.params.username;
+        axios.get(`http://localhost:8000/api-/${userName}` )
              .then( data => {
                  console.log('response is back', data);
                  this.showUser(data.data[0]);
@@ -63,6 +51,7 @@ const Profile = React.createClass({
         return ( 
             <div>
               {console.log('state', this.state )}
+              {console.log('params', this.props.params.username )}
               <h1>My name is  <b>{this.state.userInfo.name} </b></h1>
               <h2>My twitter handle is  <b> {this.state.userInfo.twitterId}</b></h2>
               <p>Please call me like this: {this.state.userInfo.nameClarification}</p>
@@ -71,12 +60,14 @@ const Profile = React.createClass({
             )     
     }
 });
+
+// App is responsible for Routing the whole app
 const App = React.createClass({
     render() {
         return ( 
             <Router history={browserHistory}>
-                    <Route path="/search" component={Search}/>
-                    <Route path="/profile" component={Profile}/>
+                    <Route path="/search-" component={Search}/>
+                    <Route path="/:username" component={Profile}/>
             </Router>
                )     
     }
