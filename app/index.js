@@ -17,6 +17,10 @@ const Recorder = (props) => <div>
                                 <h1> Record the name </h1>
                                 <div>Record</div>
                             </div>;
+const Homepage = (props) => <div>
+                                <h1> Home page </h1>
+                                <div>Yes this is homepage </div>
+                            </div>;
 
 
 const Description = (props) => <div> {props.description} </div>;
@@ -31,6 +35,9 @@ const Profile = React.createClass({
         }
     },
     showUser(response) {
+        if(!response) {
+            return;
+        }
         this.setState({
             userInfo : {
                 twitterId: response.twitterId,
@@ -66,6 +73,7 @@ const App = React.createClass({
     render() {
         return ( 
             <Router history={browserHistory}>
+                    <Route path="/" component={Homepage}/>
                     <Route path="/search-" component={Search}/>
                     <Route path="/:username" component={Profile}/>
             </Router>
