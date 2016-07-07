@@ -21,6 +21,13 @@ const Homepage = (props) => <div>
                                 <h1> Home page </h1>
                                 <div>Yes this is homepage </div>
                             </div>;
+const UserDetails = (props) => <div>
+                                  {console.log('props in UserDetails', props)}
+                                  <h1>My name is  <b>{props.userInfo.name} </b></h1>
+                                  <h2>My twitter handle is  <b> {props.userInfo.twitterId}</b></h2>
+                                  <p>Please call me like this: {props.userInfo.nameClarification}</p>
+                                  <span>Play</span>
+                            </div>;
 
 
 const Description = (props) => <div> {props.description} </div>;
@@ -28,9 +35,7 @@ const Profile = React.createClass({
     getInitialState() {
         return {
             userInfo : {
-                twitterId: '',
-                name: '',
-                nameClarification: ''
+                twitterId: ''
             }
         }
     },
@@ -57,12 +62,9 @@ const Profile = React.createClass({
     render() {
         return ( 
             <div>
-              {console.log('state', this.state )}
+              {console.log('state.userInfo.name', typeof this.state.userInfo.name )}
               {console.log('params', this.props.params.username )}
-              <h1>My name is  <b>{this.state.userInfo.name} </b></h1>
-              <h2>My twitter handle is  <b> {this.state.userInfo.twitterId}</b></h2>
-              <p>Please call me like this: {this.state.userInfo.nameClarification}</p>
-              <span>Play</span>
+              {this.state.userInfo.name ? <UserDetails userInfo = {this.state.userInfo} /> : <Search/>}
             </div>
             )     
     }
