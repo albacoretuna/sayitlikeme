@@ -29,7 +29,11 @@ const UserDetails = (props) => <div>
                                   <span>Play</span>
                             </div>;
 
-
+const AddUser = (props) => <div>
+                                <h1> Add a new user</h1>
+                                <div> Here comes a form </div>
+                            </div>;
+const AddUserForm = react.createClass();
 const Description = (props) => <div> {props.description} </div>;
 const Profile = React.createClass({
     getInitialState() {
@@ -77,6 +81,7 @@ const App = React.createClass({
             <Router history={browserHistory}>
                     <Route path="/" component={Homepage}/>
                     <Route path="/search-" component={Search}/>
+                    <Route path="/add-" component={AddUser}/>
                     <Route path="/:username" component={Profile}/>
             </Router>
                )     
