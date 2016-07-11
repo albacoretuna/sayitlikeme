@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 import React from 'react';
 import ReactDom from 'react-dom';
 import axios from 'axios';
@@ -32,8 +33,26 @@ const UserDetails = (props) => <div>
 const AddUser = (props) => <div>
                                 <h1> Add a new user</h1>
                                 <div> Here comes a form </div>
+                                <AddUserForm/>
                             </div>;
-const AddUserForm = react.createClass();
+const AddUserForm = React.createClass({
+    handleSubmit(event) {
+        event.preventDefault();
+       console.log('event', event);
+    },
+    sendFormData(data) {
+    },
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <lable htmlFor="twitter-id">Twitter Handle: </lable> <input name="twitter-id"/>
+                <lable htmlFor="name">Name: </lable> <input name="name"/>
+                <lable htmlFor="name-clarification">How to pronounce it? </lable> <input name="name-clarification"/>
+                <button type="submit">Save</button>
+            </form>
+               )
+    }
+});
 const Description = (props) => <div> {props.description} </div>;
 const Profile = React.createClass({
     getInitialState() {
@@ -51,7 +70,7 @@ const Profile = React.createClass({
             userInfo : {
                 twitterId: response.twitterId,
                 name: response.name,
-                nameClarification: response.nameClarification 
+                nameClarification: response.nameClarification
             }
         });
     },
@@ -64,27 +83,27 @@ const Profile = React.createClass({
              });
     },
     render() {
-        return ( 
+        return (
             <div>
               {console.log('state.userInfo.name', typeof this.state.userInfo.name )}
               {console.log('params', this.props.params.username )}
               {this.state.userInfo.name ? <UserDetails userInfo = {this.state.userInfo} /> : <Search/>}
             </div>
-            )     
+            )
     }
 });
 
 // App is responsible for Routing the whole app
 const App = React.createClass({
     render() {
-        return ( 
+        return (
             <Router history={browserHistory}>
                     <Route path="/" component={Homepage}/>
                     <Route path="/search-" component={Search}/>
                     <Route path="/add-" component={AddUser}/>
                     <Route path="/:username" component={Profile}/>
             </Router>
-               )     
+               )
     }
 });
 ReactDom.render(<App/>, window.document.getElementById('target'));
