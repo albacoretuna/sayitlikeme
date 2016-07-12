@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 /* router/users.js */
 const User = require('../models/user');
 const express = require('express');
@@ -13,15 +14,14 @@ router.route('/:twitterhandle').get(function(req, res) {
     });
 });
 
-router.route('/').post(function(req, res) {
+router.route('/update').post(function(req, res) {
     const query = {'twitterId':req.body.twitterId};
-
     User.findOneAndUpdate(
-            query, 
-            req.body, 
+            query,
+            req.body,
             {
                 upsert:true
-            }, 
+            },
             function(err, doc){
                 if (err) return res.send(500, { error: err });
                 return res.send("succesfully saved");

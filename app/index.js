@@ -39,12 +39,13 @@ const AddUserForm = React.createClass({
     handleSubmit(event) {
         event.preventDefault();
        console.log('event', event);
+       axios.post('http://localhost:8000/api-/update', { twitterId: 'niloo', name: 'Omid Hezaveh' });
     },
     sendFormData(data) {
     },
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form action="/api/update-" onSubmit={this.handleSubmit}>
                 <lable htmlFor="twitter-id">Twitter Handle: </lable> <input name="twitter-id"/>
                 <lable htmlFor="name">Name: </lable> <input name="name"/>
                 <lable htmlFor="name-clarification">How to pronounce it? </lable> <input name="name-clarification"/>
