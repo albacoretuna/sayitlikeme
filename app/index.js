@@ -36,10 +36,19 @@ const AddUser = (props) => <div>
                                 <AddUserForm/>
                             </div>;
 const AddUserForm = React.createClass({
+    handleNameChange(event) {
+        this.setState({name: event.target.value});
+    },
+    handleNameClarificationChange(event) {
+        this.setState({nameClarification: event.target.value});
+    },
     handleSubmit(event) {
         event.preventDefault();
        console.log('event', event);
-       axios.post('http://localhost:8000/api-/update', { twitterId: 'niloo', name: 'Omid Hezaveh' });
+       let name = event.target.value
+       const data =  { twitterId: 'niloo', name: this.state.name, nameClarification: this.state.nameClarification };
+       console.log('name was', data.name);
+       axios.post('http://localhost:8000/api-/update', data);
     },
     sendFormData(data) {
     },
@@ -47,8 +56,8 @@ const AddUserForm = React.createClass({
         return (
             <form action="/api/update-" onSubmit={this.handleSubmit}>
                 <lable htmlFor="twitter-id">Twitter Handle: </lable> <input name="twitter-id"/>
-                <lable htmlFor="name">Name: </lable> <input name="name"/>
-                <lable htmlFor="name-clarification">How to pronounce it? </lable> <input name="name-clarification"/>
+                <lable htmlFor="name">Name: </lable> <input name="name" onChange={this.handleNameChange}/>
+                <lable htmlFor="name-clarification">How to pronounce it? </lable> <input name="name-clarification" onChange={this.handleNameClarificationChange}/>
                 <button type="submit">Save</button>
             </form>
                )
