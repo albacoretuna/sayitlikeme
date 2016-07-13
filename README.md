@@ -9,6 +9,9 @@ http://sayitlike.me/YourTwitterHandle
 
 That URL can be shared with anyone that need to know how to pronounce the name.
 
+# Help Needed
+No matter what technical skills you have, any help would be appreciated. For example with: suggestions for improving the idea, designing a logo, etc... just open an issue and let's talk
+
 ## The rest is just development notes
 ## User stories
   * map sayitlike.me/twitterhandle to a page for @twitterhandle on twitter containing an audio recording of the name
