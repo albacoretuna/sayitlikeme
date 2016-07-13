@@ -1,3 +1,5 @@
+
+<img src="https://i.imgur.com/8YhEyty.png" width="160">
 # sayitlike.me
 Are you annoyed by those who can't pronounce your name the way you like it?
 Do you get sad when you can't call someone's name with grace?.  
