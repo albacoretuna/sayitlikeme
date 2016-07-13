@@ -10,9 +10,9 @@ const Search = (props) => <div>
                               <input type="text"/>
                               <button>Find</button>
                           </div>;
-const Login = (props) => <div>
-                             <h2>Login With Twitter </h2>
-                             <button> Login </button>
+const Signup = (props) => <div>
+                             <h2>Signup With Twitter </h2>
+                             <button> Signup </button>
                          </div>;
 const Recorder = (props) => <div>
                                 <h1> Record the name </h1>
@@ -21,6 +21,7 @@ const Recorder = (props) => <div>
 const Homepage = (props) => <div>
                                 <h1> Home page </h1>
                                 <div>Yes this is homepage </div>
+                                <Signup />
                             </div>;
 const UserDetails = (props) => <div>
                                   {console.log('props in UserDetails', props)}
@@ -87,9 +88,9 @@ const Profile = React.createClass({
     componentDidMount() {
         let userName = this.props.params.username;
         axios.get(`http://localhost:8000/api-/${userName}` )
-             .then( data => {
-                 console.log('response is back', data);
-                 this.showUser(data.data[0]);
+             .then( response => {
+                 console.log('response is back', response);
+                 this.showUser(response.data[0]);
              });
     },
     render() {
