@@ -33,6 +33,12 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "connect-ensure-login": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "express-session": "^1.14.0",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-twitter": "^1.0.4",
     "react": "^15.1.0"
   }
 }

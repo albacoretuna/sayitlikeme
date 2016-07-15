@@ -49,7 +49,7 @@ const AddUserForm = React.createClass({
        let name = event.target.value
        const data =  { twitterId: 'niloo', name: this.state.name, nameClarification: this.state.nameClarification };
        console.log('name was', data.name);
-       axios.post('http://localhost:8000/api-/update', data);
+       axios.post('http://localhost:8080/api-/update', data);
     },
     sendFormData(data) {
     },
@@ -87,7 +87,7 @@ const Profile = React.createClass({
     },
     componentDidMount() {
         let userName = this.props.params.username;
-        axios.get(`http://localhost:8000/api-/${userName}` )
+        axios.get(`http://localhost:8080/api-/${userName}` )
              .then( response => {
                  console.log('response is back', response);
                  this.showUser(response.data[0]);
