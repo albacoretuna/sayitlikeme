@@ -20,24 +20,38 @@ const connectionString = 'mongodb://localhost:27017/' + dbName;
 
 mongoose.connect(connectionString);
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
 passport.use(new TwitterStrategy({
-    consumerKey: secrets.twitterAuth.consumerKey,
-    consumerSecret: secrets.twitterAuth.consumerSecret,
-    callbackURL: secrets.twitterAuth.callbackURL
-  },
-  function(token, tokenSecret, profile, cb) {
-    User.findOne({ twitterId: profile.id }, function (err, user) {
-      return cb(err, user);
-    });
-  }
-));
+        consumerKey: secrets.twitterAuth.consumerKey,
+        consumerSecret: secrets.twitterAuth.consumerSecret,
+        callbackURL: secrets.twitterAuth.callbackURL
+    },
+    function(token, tokenSecret, profile, cb) {
+        console.log(JSON.stringify(profile));
+         User.findOne({ twitterId: profile.username }, function (err, user) {
+             console.log(JSON.stringify(user));
+             return cb(err, user);
+         });
+        /*
+        User.findOneAndUpdate(
+            {'twitterId':profile.username},
+            user,
+            {
+                upsert:true
+            },
+            function(err, user){
+                if (err) return res.send(500, { error: err });
+                return cb(err, user);
+            });
+         */
+    })
+);
 
 
 // Configure Passport authenticated session persistence.
@@ -50,18 +64,18 @@ passport.use(new TwitterStrategy({
 // example does not have a database, the complete Twitter profile is serialized
 // and deserialized.
 passport.serializeUser(function(user, cb) {
-  cb(null, user);
+    cb(null, user);
 });
 
 passport.deserializeUser(function(obj, cb) {
-  cb(null, obj);
+    cb(null, obj);
 });
 
 // logging, parsing, and session handling.
 app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(require('express-session')({ secret: 'asdfbasd234SDKJ!@#$@#$', resave: true, saveUninitialized: true }));
 
 // Initialize Passport and restore authentication state, if any, from the
 // session.
@@ -70,11 +84,11 @@ app.use(passport.session());
 
 //This is our route middleware
 app.get('/auth/twitter/callback',
-  passport.authenticate('twitter', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/add-');
-  });
+    passport.authenticate('twitter', { failureRedirect: '/login' }),
+    function(req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/add-');
+    });
 app.use('/api-/', users);
 app.use('/public-/', express.static(__dirname + '/public-'));
 app.get('/auth/twitter', passport.authenticate('twitter'));
