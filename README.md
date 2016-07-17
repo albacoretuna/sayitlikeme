@@ -2,7 +2,7 @@
 <img src="https://i.imgur.com/8YhEyty.png" width="160">
 # sayitlike.me
 Are you annoyed by those who can't pronounce your name the way you like it?
-Do you get sad when you can't call someone's name with grace?.  
+Do you get sad when you can't call someone's name with grace?.
 Sayitlike.me is an open source effort to solve that problem.
 
 Users can login with their twitter account, record their name, and they'll get a personal URL
@@ -17,11 +17,14 @@ No matter what technical skills you have, any help would be appreciated. For exa
 ## The rest is just development notes
 ## User stories
   * map sayitlike.me/twitterhandle to a page for @twitterhandle on twitter containing an audio recording of the name
+  * user clicks on "Sign up with twitter and record your name", after logging in using twitter, a form shows up,
+  asking for name, name clarification,... and those can be saved.
 
 ## Components
 ### First phase
+  * User registration
   * Login
-  * User page (only with written instruction for pronunciation)
+  * User page, or profile (only with written instruction for pronunciation)
   * Search
 
 ### Second Phase
@@ -30,12 +33,10 @@ No matter what technical skills you have, any help would be appreciated. For exa
 ## Mongoose instructions from
 https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
 
-## Should we swtich to neDB?
-NeDB is a simple embedded data store that can be used instead of MongoDB in small apps.
-Benefit of using that is easier project setup as no mongodb will be needed. 
-
-## Routing 
+## Routing
 Requirements
-  * all sayitlike.me/twitterHandle, need to be routed to app/index.html 
-  * all sayitlike.me/api-/twitterHandle, need to return JSON, containging user info
-  * all static files need to be served from /public as such 
+  * all sayitlike.me/twitterHandle, returns to app/index.html
+  * all sayitlike.me/api-/twitterHandle, returns JSON, containging user info
+  * all static files need to be served from /public as such
+  * /api-/add => user registration form
+  * /api-/update => update user in db

@@ -25,7 +25,7 @@ app.use(function(req, res, next) {
     next();
 });
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 passport.use(new TwitterStrategy({
         consumerKey: secrets.twitterAuth.consumerKey,
@@ -64,7 +64,7 @@ passport.use(new TwitterStrategy({
 // example does not have a database, the complete Twitter profile is serialized
 // and deserialized.
 passport.serializeUser(function(user, cb) {
-    cb(null, user);
+    cb(null, user.twitterId);
 });
 
 passport.deserializeUser(function(obj, cb) {
@@ -87,6 +87,7 @@ app.get('/auth/twitter/callback',
     passport.authenticate('twitter', { failureRedirect: '/login' }),
     function(req, res) {
         // Successful authentication, redirect home.
+        console.log('user in successredirect looks like', req.session.id);
         res.redirect('/add-');
     });
 app.use('/api-/', users);

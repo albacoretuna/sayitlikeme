@@ -12,7 +12,7 @@ const Search = (props) => <div>
                           </div>;
 const Signup = (props) => <div>
                              <h2>Signup With Twitter </h2>
-                             <button> Signup </button>
+                             <a href="/auth/twitter"> Signup </a>
                          </div>;
 const Recorder = (props) => <div>
                                 <h1> Record the name </h1>
