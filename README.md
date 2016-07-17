@@ -20,6 +20,9 @@ No matter what technical skills you have, any help would be appreciated. For exa
   * user clicks on "Sign up with twitter and record your name", after logging in using twitter, a form shows up,
   asking for name, name clarification,... and those can be saved.
 
+## Authentication
+After logging in with twitter, user's redirected to /add- page, a form should be ready with twitter handle filled in. The form can be submitted, when other fields are filled. On server the twitter handle can be compared to the one in session, if it's a match, db can be updated with the data.
+
 ## Components
 ### First phase
   * User registration
