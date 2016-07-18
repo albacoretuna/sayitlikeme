@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import axios from 'axios';
 import { Router, Route, browserHistory} from 'react-router';
-
+const apiUrl = 'http://127.0.0.1:8000';
 
 const Search = (props) => <div>
                               <h2>Search:</h2>
@@ -49,7 +49,7 @@ const AddUserForm = React.createClass({
        let name = event.target.value
        const data =  { twitterId: 'niloo', name: this.state.name, nameClarification: this.state.nameClarification };
        console.log('name was', data.name);
-       axios.post('http://localhost:8080/api-/update', data);
+       axios.post(`${apiUrl}/api-/update`, data);
     },
     sendFormData(data) {
     },
@@ -87,7 +87,7 @@ const Profile = React.createClass({
     },
     componentDidMount() {
         let userName = this.props.params.username;
-        axios.get(`http://localhost:8080/api-/${userName}` )
+        axios.get(`${apiUrl}/api-/${userName}`)
              .then( response => {
                  console.log('response is back', response);
                  this.showUser(response.data[0]);

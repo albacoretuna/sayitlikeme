@@ -33,9 +33,9 @@ passport.use(new TwitterStrategy({
         callbackURL: secrets.twitterAuth.callbackURL
     },
     function(token, tokenSecret, profile, cb) {
-        console.log(JSON.stringify(profile));
+        // console.log(JSON.stringify(profile));
          User.findOne({ twitterId: profile.username }, function (err, user) {
-             console.log(JSON.stringify(user));
+             //  console.log(JSON.stringify(user));
              return cb(err, user);
          });
         /*
@@ -72,7 +72,7 @@ passport.deserializeUser(function(obj, cb) {
 });
 
 // logging, parsing, and session handling.
-app.use(require('morgan')('combined'));
+// app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'asdfbasd234SDKJ!@#$@#$', resave: true, saveUninitialized: true }));
@@ -87,7 +87,7 @@ app.get('/auth/twitter/callback',
     passport.authenticate('twitter', { failureRedirect: '/login' }),
     function(req, res) {
         // Successful authentication, redirect home.
-        console.log('user in successredirect looks like', req.session.id);
+        console.log('request.session.passport.user in successredirect looks like', req.session.passport.user);
         res.redirect('/add-');
     });
 app.use('/api-/', users);
@@ -95,10 +95,12 @@ app.use('/public-/', express.static(__dirname + '/public-'));
 app.get('/auth/twitter', passport.authenticate('twitter'));
 
 app.use('*',function(req,res) {
+    if(req.session.passport) {
+        console.log('request.session.passport.user in get * looks like', req.session.passport.user);
+    } else {
+        console.log('passport not defined');
+    }
     res.sendFile(__dirname +'/app/index.html');
 });
-
-
-
 
 module.exports = app;
