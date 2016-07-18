@@ -1,5 +1,6 @@
-
+<p align="center">
 <img src="https://i.imgur.com/8YhEyty.png" width="160">
+</p>
 # sayitlike.me
 Are you annoyed by those who can't pronounce your name the way you like it?
 Do you get sad when you can't call someone's name with grace?.
@@ -9,19 +10,29 @@ Users can login with their twitter account, record their name, and they'll get a
 like this:
 http://sayitlike.me/YourTwitterHandle
 
-That URL can be shared with anyone that need to know how to pronounce the name.
+That URL can be shared with anyone that need to know how to pronounce that name.
 
 # Help Needed
-No matter what technical skills you have, any help would be appreciated. For example with: suggestions for improving the idea, designing a logo, etc... just open an issue and let's talk
+No matter what technical skills you have, any help would be appreciated.
+For example:
+  * suggestions for improving the idea
+  * designing logo, wireframes
+  * reviewing the code
+  * adding comments to code
 
-## The rest is just development notes
+
+# Development notes
 ## User stories
   * map sayitlike.me/twitterhandle to a page for @twitterhandle on twitter containing an audio recording of the name
   * user clicks on "Sign up with twitter and record your name", after logging in using twitter, a form shows up,
   asking for name, name clarification,... and those can be saved.
 
-## Authentication
-After logging in with twitter, user's redirected to /add- page, a form should be ready with twitter handle filled in. The form can be submitted, when other fields are filled. On server the twitter handle can be compared to the one in session, if it's a match, db can be updated with the data.
+## Signup / Authentication scenario
+After logging in with twitter,
+  * user's redirected to /add- page,
+  * a form should be ready with twitter handle filled in.
+  * The form can be submitted, when other fields are filled.
+  * On server the twitter handle can be compared to the one in session, if it's a match, db can be updated with the form data.
 
 ## Components
 ### First phase
