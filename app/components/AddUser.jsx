@@ -1,6 +1,8 @@
 import React from 'react';
+import axios from 'axios';
+const apiUrl = 'http://127.0.0.1:8000';
 
-const AddUser = (props) => <div>
+const AddUser = () => <div>
                                 <h1> Add a new user</h1>
                                 <div> Here comes a form </div>
                                 <AddUserForm/>
@@ -12,15 +14,22 @@ const AddUserForm = React.createClass({
     handleNameClarificationChange(event) {
         this.setState({nameClarification: event.target.value});
     },
+    componentDidMount() {
+        let userName = this.props.params.username;
+        axios.get(`${apiUrl}/api-/${userName}`)
+             .then( response => {
+                 //console.log('response is back', response);
+                 this.showUser(response.data[0]);
+             });
+    },
     handleSubmit(event) {
         event.preventDefault();
-       console.log('event', event);
-       let name = event.target.value
-       const data =  { twitterId: 'niloo', name: this.state.name, nameClarification: this.state.nameClarification };
-       console.log('name was', data.name);
-       axios.post(`${apiUrl}/api-/update`, data);
+        //console.log('event', event);
+        const data =  { twitterId: 'niloo', name: this.state.name, nameClarification: this.state.nameClarification };
+        //console.log('name was', data.name);
+        axios.post(`${apiUrl}/api-/update`, data);
     },
-    sendFormData(data) {
+    sendFormData() {
     },
     render() {
         return (
@@ -30,7 +39,7 @@ const AddUserForm = React.createClass({
                 <lable htmlFor="name-clarification">How to pronounce it? </lable> <input name="name-clarification" onChange={this.handleNameClarificationChange}/>
                 <button type="submit">Save</button>
             </form>
-               )
+               );
     }
 });
 export default AddUser;
