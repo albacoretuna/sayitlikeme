@@ -15,8 +15,8 @@ const AddUserForm = React.createClass({
         this.setState({nameClarification: event.target.value});
     },
     componentDidMount() {
-        let userName = this.props.params.username;
-        axios.get(`${apiUrl}/api-/${userName}`)
+        // TODO complete these
+        axios.get(`${apiUrl}/api-/current-user`)
              .then( response => {
                  //console.log('response is back', response);
                  this.showUser(response.data[0]);
