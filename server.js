@@ -1,4 +1,4 @@
-/* jshint esversion: 6 */
+/* globals __dirname */
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -20,24 +20,24 @@ const connectionString = 'mongodb://localhost:27017/' + dbName;
 
 mongoose.connect(connectionString);
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 passport.use(new TwitterStrategy({
-        consumerKey: secrets.twitterAuth.consumerKey,
-        consumerSecret: secrets.twitterAuth.consumerSecret,
-        callbackURL: secrets.twitterAuth.callbackURL
-    },
+    consumerKey: secrets.twitterAuth.consumerKey,
+    consumerSecret: secrets.twitterAuth.consumerSecret,
+    callbackURL: secrets.twitterAuth.callbackURL
+},
     function(token, tokenSecret, profile, cb) {
         // console.log(JSON.stringify(profile));
-         User.findOne({ twitterId: profile.username }, function (err, user) {
+        User.findOne({ twitterId: profile.username }, function (err, user) {
              //  console.log(JSON.stringify(user));
-             return cb(err, user);
-         });
+            return cb(err, user);
+        });
         /*
         User.findOneAndUpdate(
             {'twitterId':profile.username},
@@ -87,7 +87,7 @@ app.get('/auth/twitter/callback',
     passport.authenticate('twitter', { failureRedirect: '/login' }),
     function(req, res) {
         // Successful authentication, redirect home.
-        console.log('request.session.passport.user in successredirect looks like', req.session.passport.user);
+        // console.log('request.session.passport.user in successredirect looks like', req.session.passport.user);
         res.redirect('/add-');
     });
 app.use('/api-/', users);
@@ -96,9 +96,9 @@ app.get('/auth/twitter', passport.authenticate('twitter'));
 
 app.use('*',function(req,res) {
     if(req.session.passport) {
-        console.log('request.session.passport.user in get * looks like', req.session.passport.user);
+        // console.log('request.session.passport.user in get * looks like', req.session.passport.user);
     } else {
-        console.log('passport not defined');
+        //console.log('passport not defined');
     }
     res.sendFile(__dirname +'/app/index.html');
 });

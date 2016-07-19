@@ -1,4 +1,3 @@
-/* jshint esversion: 6 */
 // config/passport.js
 
 const TwitterStrategy  = require('passport-twitter').Strategy;
