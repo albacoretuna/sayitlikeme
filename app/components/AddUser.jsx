@@ -1,12 +1,39 @@
 import React from 'react';
 import axios from 'axios';
+import Signup from './Signup.jsx';
 const apiUrl = 'http://127.0.0.1:8000';
 
-const AddUser = () => <div>
-                                <h1> Add a new user</h1>
-                                <div> Here comes a form </div>
-                                <AddUserForm/>
-                            </div>;
+const AddUser = React.createClass({
+    getInitialState() {
+        return {
+            userInfo : {
+                twitterId: ''
+            }
+        };
+    },
+    componentDidMount() {
+        axios.get(`${apiUrl}/api-/current-user`)
+            .then( response => {
+                //this.showUser(response.data[0]);
+                if('fail' in response.data) {
+                    console.log('user not authenticated', response);
+                }
+                if ('success' in response.data) {
+                    this.setState({userInfo : {twitterId: response.data.success}});
+                }
+            });
+    },
+    render() {
+        return (
+            <div>
+                <h1> Add a new user</h1>
+                <div> Here comes a form </div>
+
+                {this.state.userInfo.twitterId ? <AddUserForm currentUser={this.state.userInfo.twitterId}/> : <Signup/>}
+
+            </div>);
+    }
+});
 const AddUserForm = React.createClass({
     handleNameChange(event) {
         this.setState({name: event.target.value});
@@ -14,32 +41,22 @@ const AddUserForm = React.createClass({
     handleNameClarificationChange(event) {
         this.setState({nameClarification: event.target.value});
     },
-    componentDidMount() {
-        // TODO complete these
-        axios.get(`${apiUrl}/api-/current-user`)
-             .then( response => {
-                 //console.log('response is back', response);
-                 this.showUser(response.data[0]);
-             });
-    },
     handleSubmit(event) {
         event.preventDefault();
         //console.log('event', event);
-        const data =  { twitterId: 'niloo', name: this.state.name, nameClarification: this.state.nameClarification };
+        const data =  { twitterId: this.props.currentUser, name: this.state.name, nameClarification: this.state.nameClarification };
         //console.log('name was', data.name);
         axios.post(`${apiUrl}/api-/update`, data);
-    },
-    sendFormData() {
     },
     render() {
         return (
             <form action="/api/update-" onSubmit={this.handleSubmit}>
-                <lable htmlFor="twitter-id">Twitter Handle: </lable> <input name="twitter-id"/>
+                Twitter Handle: {this.props.currentUser}
                 <lable htmlFor="name">Name: </lable> <input name="name" onChange={this.handleNameChange}/>
                 <lable htmlFor="name-clarification">How to pronounce it? </lable> <input name="name-clarification" onChange={this.handleNameClarificationChange}/>
                 <button type="submit">Save</button>
             </form>
-               );
+        );
     }
 });
 export default AddUser;
