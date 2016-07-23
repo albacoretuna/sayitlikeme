@@ -31,6 +31,9 @@ module.exports = {
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        // TODO implement a custom console that can be easily turned off in production
+        "no-console": 0
+
     }
 };

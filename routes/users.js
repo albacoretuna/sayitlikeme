@@ -21,8 +21,10 @@ router.route('/update').post(function(req, res) {
             upsert:true
         },
         function(err){
-            if (err) return res.send(500, { error: err });
-            return res.send('succesfully saved');
+            if (err) {
+                return res.send(500, { error: err });
+            }
+            return res.sendStatus(200);
         });
 });
 router.route('/:twitterhandle').get(function(req, res) {
