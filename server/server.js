@@ -1,8 +1,11 @@
 /* eslint-env node */
 const fs = require('fs');
+const path = require('path');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+
 
 const User = require('./models/user');
 //routes are defined here
@@ -103,17 +106,21 @@ app.get('/auth/twitter/callback',
         res.redirect('/add-');
     });
 app.use('/api-/', users);
-app.use('/public-/', express.static(__dirname + '/public-'));
+app.use('/public-/', express.static(path.resolve(__dirname,'../public-/')));
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.post('/upload-/audio', function(req, res){
+    // user is not authenticated, send permission error
+    if(!getCurrentUser(req)) {
+        return res.sendStatus(403);
+    }
     const buf = Buffer.from(req.body.blob, 'base64'); // decode
     const fileName = getCurrentUser(req);
-
-    fs.writeFile(`./public-/audio-upload/${fileName}.wav`, buf, function(err) {
+    let fullFilePath = path.join(__dirname, '..', '/public-/audio-upload/', fileName + '.wav');
+    fs.writeFile(fullFilePath, buf, function(err) {
         if(err) {
             console.log('err', err);
         } else {
-            return res.json({'status': 'success'});
+            return res.sendStatus(200);
         }});
 });
 app.use('*',function(req,res) {
@@ -122,7 +129,7 @@ app.use('*',function(req,res) {
     } else {
         //console.log('passport not defined');
     }
-    res.sendFile(__dirname +'/app/index.html');
+    res.sendFile('index.html', {root: path.resolve(__dirname,'../client/')});
 });
 
 module.exports = app;

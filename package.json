@@ -1,11 +1,11 @@
 {
   "name": "sayitlikeme",
-  "version": "0.0.1",
+  "version": "0.5.1",
   "description": "Pronounce names like their owners do",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "echo \"Running nodejs server...\" &&  nodemon ./bin/www.js",
+    "server": "echo \"Running nodejs server...\" &&  nodemon --watch server ./server/bin/www.js",
     "start": "webpack -w"
   },
   "repository": {
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/omidfi/sayitlikeme.git"
   },
   "author": "Omid Hezaveh",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/omidfi/sayitlikeme/issues"
   },
