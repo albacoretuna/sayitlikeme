@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Signup from './Signup.jsx';
+import AudioRecorder from '../audio-recorder/AudioRecorder.js';
 const apiUrl = 'http://127.0.0.1:8000';
 
 const AddUser = React.createClass({
@@ -60,12 +61,15 @@ const AddUserForm = React.createClass({
     },
     render() {
         return (
-            <form action="/api/update-" onSubmit={this.handleSubmit}>
-                <h2>Twitter Handle: {this.props.currentUser}</h2>
-                <lable htmlFor="name">Name: </lable> <input name="name" onChange={this.handleNameChange}/>
-                <lable htmlFor="name-clarification">How to pronounce it? </lable> <input name="name-clarification" onChange={this.handleNameClarificationChange}/>
-                <button type="submit" disabled={this.state.isSubmitDisabled}>Save</button>
-            </form>
+            <div>
+                <form action="/api/update-" onSubmit={this.handleSubmit}>
+                    <h2>Twitter Handle: {this.props.currentUser}</h2>
+                    <lable htmlFor="name">Name: </lable> <input name="name" onChange={this.handleNameChange}/>
+                    <lable htmlFor="name-clarification">How to pronounce it? </lable> <input name="name-clarification" onChange={this.handleNameClarificationChange}/>
+                    <button type="submit" disabled={this.state.isSubmitDisabled}>Save</button>
+                </form>
+                <AudioRecorder download={true}/>
+            </div>
         );
     }
 });

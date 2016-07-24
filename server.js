@@ -1,4 +1,5 @@
-/* globals __dirname */
+/* eslint-env node */
+const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -24,8 +25,8 @@ app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({ limit: '50mb',parameterLimit:50000, extended: true }));
 
 passport.use(new TwitterStrategy({
     consumerKey: secrets.twitterAuth.consumerKey,
@@ -70,7 +71,18 @@ passport.serializeUser(function(user, cb) {
 passport.deserializeUser(function(obj, cb) {
     cb(null, obj);
 });
-
+/**
+ * getCurrentUser
+ *
+ * @param req
+ * @returns {string} the authenticated user's twitter handle  or {undefined}
+ */
+function getCurrentUser(req) {
+    if(req.session && req.session.passport && typeof req.session.passport.user === 'string') {
+        return req.session.passport.user;
+    }
+    return undefined;
+}
 // logging, parsing, and session handling.
 // app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
@@ -93,7 +105,17 @@ app.get('/auth/twitter/callback',
 app.use('/api-/', users);
 app.use('/public-/', express.static(__dirname + '/public-'));
 app.get('/auth/twitter', passport.authenticate('twitter'));
+app.post('/upload-/audio', function(req, res){
+    const buf = Buffer.from(req.body.blob, 'base64'); // decode
+    const fileName = getCurrentUser(req);
 
+    fs.writeFile(`./public-/audio-upload/${fileName}.wav`, buf, function(err) {
+        if(err) {
+            console.log('err', err);
+        } else {
+            return res.json({'status': 'success'});
+        }});
+});
 app.use('*',function(req,res) {
     if(req.session.passport) {
         // console.log('request.session.passport.user in get * looks like', req.session.passport.user);
