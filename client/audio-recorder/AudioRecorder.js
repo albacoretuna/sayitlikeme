@@ -1,3 +1,4 @@
+// this is shamelessly copied from https://github.com/danrouse/react-audio-recorder and others
 import React, { Component, PropTypes } from 'react';
 import encodeWAV from './wav-encoder.js';
 import axios from 'axios';
@@ -19,7 +20,15 @@ class AudioRecorder extends Component {
             audio: props.audio
         };
     }
+    //Stop recording if it's longer than length
+    componentWillUpdate(nextProp, nextState) {
 
+        // max recording duration in seconds
+        const MAX_DURATION = 10;
+        if(nextState.duration >= MAX_DURATION && nextState.recording === true) {
+            this.stopRecording();
+        }
+    }
     startRecording() {
         navigator.getUserMedia = navigator.getUserMedia ||
             navigator.webkitGetUserMedia ||
@@ -37,16 +46,17 @@ class AudioRecorder extends Component {
                 for(let i = 0; i < 2; i++) {
                     const channel = event.inputBuffer.getChannelData(i);
                     this.buffers[i].push(new Float32Array(channel));
-                    console.log('bufferlenght', this.bufferLength);
-                    console.log('bufferSize', bufferSize);
-                    console.log('buffers', this.buffers);
                     this.bufferLength += bufferSize;
+                    this.setState({
+                        duration: this.bufferLength / this.sampleRate / 2
+                    });
                 }
             };
 
             gain.connect(recorder);
             recorder.connect(this.audioContext.destination);
             this.recordingStream = stream;
+            this.recordingStarttime = Date.now();
         }, (err) => {
             console.log(err);
 
@@ -62,12 +72,12 @@ class AudioRecorder extends Component {
 
     stopRecording() {
         this.recordingStream.getTracks()[0].stop();
-
         const audioData = encodeWAV(this.buffers, this.bufferLength, this.sampleRate);
 
         this.setState({
             recording: false,
             audio: audioData
+
         });
 
         if(this.props.onChange) {
@@ -123,17 +133,7 @@ class AudioRecorder extends Component {
         // sorry for this, but couldn't reset the audio blob anyhow, so had to reload the whole page!
         window.location.reload();
     }
-    downloadAudio() {
-        const url = (window.URL || window.webkitURL).createObjectURL(this.state.audio);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'output.wav';
-        const click = document.createEvent('Event');
-        click.initEvent('click', true, true);
-        link.dispatchEvent(click);
-    }
     uploadAudio() {
-        console.log(this.state.audio);
         var blobToBase64 = function(blob, cb) {
             var reader = new FileReader();
             reader.onload = function() {
@@ -191,11 +191,6 @@ class AudioRecorder extends Component {
                 <button key="upload" className="AudioRecorder-upload" onClick={this.uploadAudio.bind(this)}>{strings.upload}</button>
             ];
 
-            if(this.props.download) {
-                audioButtons.push(
-                    <button key="download" className="AudioRecorder-download" onClick={this.downloadAudio.bind(this)}>{strings.download}</button>
-                );
-            }
         } else {
             if(this.state.recording) {
                 buttonClass.push('isRecording');
@@ -253,7 +248,6 @@ AudioRecorder.defaultProps = {
         record: '● Record',
         recording: '● Recording',
         remove: '✖ Record Again',
-        download: '\ud83d\udcbe Save', // unicode floppy disk
         upload: 'Upload'
     }
 };
