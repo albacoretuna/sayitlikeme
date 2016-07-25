@@ -90,7 +90,9 @@ class AudioRecorder extends Component {
     }
 
     startPlayback() {
-        this.audioContext.resume();
+        if(this.audioContext.state === 'suspended') {
+            this.audioContext.resume();
+        }
         const reader = new window.FileReader();
         reader.readAsArrayBuffer(this.state.audio);
         reader.onloadend = () => {
@@ -145,7 +147,7 @@ class AudioRecorder extends Component {
         };
         blobToBase64(this.state.audio, function(base64){ // encode
             var data = {'blob': base64};
-            axios.post(apiUrl + '/upload-/audio', data);
+            axios.post(apiUrl + '/upload-/audio', data).then((resp) => console.log(resp));
         });
     }
 
@@ -157,7 +159,9 @@ class AudioRecorder extends Component {
         if(this.props.onEnded) {
             this.props.onEnded.call();
         }
-        this.audioContext.suspend();
+        if(this.audioContext.state === 'running') {
+            this.audioContext.suspend();
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -180,7 +184,6 @@ class AudioRecorder extends Component {
             if(this.state.playing) {
                 buttonClass.push('isPlaying');
                 buttonText = strings.playing;
-                clickHandler = this.stopPlayback;
             } else {
                 buttonText = strings.play;
                 clickHandler = this.startPlayback;
@@ -218,7 +221,6 @@ class AudioRecorder extends Component {
 
 AudioRecorder.propTypes = {
     audio: PropTypes.instanceOf(Blob),
-    download: PropTypes.bool,
     loop: PropTypes.bool,
 
     onAbort: PropTypes.func,
@@ -234,7 +236,6 @@ AudioRecorder.propTypes = {
         record: PropTypes.string,
         recording: PropTypes.string,
         remove: PropTypes.string,
-        download: PropTypes.string,
         upload: PropTypes.string
     })
 };
@@ -244,9 +245,9 @@ AudioRecorder.defaultProps = {
 
     strings: {
         play: '🔊 Play',
-        playing: '❚❚ Playing',
+        playing: 'Playing...',
         record: '● Record',
-        recording: '● Recording',
+        recording: '● Recording... click to stop',
         remove: '✖ Record Again',
         upload: 'Upload'
     }
