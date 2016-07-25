@@ -1,4 +1,4 @@
-/* jshint esversion: 6 */
+/* eslint-env node */
 /* router/users.js */
 const User = require('../models/user');
 const express = require('express');
@@ -22,7 +22,7 @@ router.route('/update').post(function(req, res) {
         },
         function(err){
             if (err) {
-                return res.send(500, { error: err });
+                return res.sendStatus(500);
             }
             return res.sendStatus(200);
         });

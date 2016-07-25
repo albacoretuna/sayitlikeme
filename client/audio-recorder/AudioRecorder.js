@@ -37,6 +37,9 @@ class AudioRecorder extends Component {
                 for(let i = 0; i < 2; i++) {
                     const channel = event.inputBuffer.getChannelData(i);
                     this.buffers[i].push(new Float32Array(channel));
+                    console.log('bufferlenght', this.bufferLength);
+                    console.log('bufferSize', bufferSize);
+                    console.log('buffers', this.buffers);
                     this.bufferLength += bufferSize;
                 }
             };
@@ -73,9 +76,11 @@ class AudioRecorder extends Component {
                 blob: audioData
             });
         }
+        this.audioContext.suspend();
     }
 
     startPlayback() {
+        this.audioContext.resume();
         const reader = new window.FileReader();
         reader.readAsArrayBuffer(this.state.audio);
         reader.onloadend = () => {
@@ -115,22 +120,9 @@ class AudioRecorder extends Component {
     }
 
     removeAudio() {
-        if(this.state.audio) {
-            if(this.playbackSource) {
-                this.playbackSource.stop();
-                delete this.playbackSource;
-            }
-
-            this.setState({
-                audio: null
-            });
-
-            if(this.props.onChange) {
-                this.props.onChange.call();
-            }
-        }
+        // sorry for this, but couldn't reset the audio blob anyhow, so had to reload the whole page!
+        window.location.reload();
     }
-
     downloadAudio() {
         const url = (window.URL || window.webkitURL).createObjectURL(this.state.audio);
         const link = document.createElement('a');
@@ -165,6 +157,7 @@ class AudioRecorder extends Component {
         if(this.props.onEnded) {
             this.props.onEnded.call();
         }
+        this.audioContext.suspend();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -215,7 +208,7 @@ class AudioRecorder extends Component {
         }
 
         return (
-            <div className="AudioRecorder">
+            <div className="AudioRecorder" >
                 <button
                     className={buttonClass.join(' ')}
                     onClick={clickHandler && clickHandler.bind(this)}
@@ -259,7 +252,7 @@ AudioRecorder.defaultProps = {
         playing: '❚❚ Playing',
         record: '● Record',
         recording: '● Recording',
-        remove: '✖ Remove',
+        remove: '✖ Record Again',
         download: '\ud83d\udcbe Save', // unicode floppy disk
         upload: 'Upload'
     }

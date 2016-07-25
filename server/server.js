@@ -118,7 +118,7 @@ app.post('/upload-/audio', function(req, res){
     let fullFilePath = path.join(__dirname, '..', '/public-/audio-upload/', fileName + '.wav');
     fs.writeFile(fullFilePath, buf, function(err) {
         if(err) {
-            console.log('err', err);
+            return res.sendStatus(500);
         } else {
             return res.sendStatus(200);
         }});
