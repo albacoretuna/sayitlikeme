@@ -4,6 +4,10 @@ const UserDetails = (props) => <div>
                                   <h1>My name is  <b>{props.userInfo.name} </b></h1>
                                   <h2>My twitter handle is  <b> {props.userInfo.twitterId}</b></h2>
                                   <p>Please call me like this: {props.userInfo.nameClarification}</p>
+                                  <audio controls="controls">
+                                        Your browser does not support the <code>audio</code> element.
+                                        <source src={"./public-/audio-upload/" + props.userInfo.twitterId + ".wav"} type="audio/wav" />
+                                  </audio>
                                   <span>Play</span>
                             </div>;
 

@@ -68,7 +68,7 @@ const AddUserForm = React.createClass({
                     <lable htmlFor="name-clarification">How to pronounce it? </lable> <input name="name-clarification" onChange={this.handleNameClarificationChange}/>
                     <button type="submit" disabled={this.state.isSubmitDisabled}>Save</button>
                 </form>
-                <AudioRecorder download={true}/>
+                <AudioRecorder/>
             </div>
         );
     }
