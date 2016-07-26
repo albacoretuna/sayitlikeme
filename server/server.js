@@ -21,6 +21,7 @@ const app = express();
 const dbName = 'usersDb';
 const connectionString = 'mongodb://localhost:27017/' + dbName;
 
+const audio = require('./utils/audio.js');
 
 mongoose.connect(connectionString);
 app.use(function(req, res, next) {
@@ -113,6 +114,7 @@ app.post('/upload-/audio', function(req, res){
     if(!getCurrentUser(req)) {
         return res.sendStatus(403);
     }
+    // based on http://stackoverflow.com/a/24003932/3994190
     const buf = Buffer.from(req.body.blob, 'base64'); // decode
     const fileName = getCurrentUser(req);
     let fullFilePath = path.join(__dirname, '..', '/public-/audio-upload/', fileName + '.wav');
@@ -120,6 +122,8 @@ app.post('/upload-/audio', function(req, res){
         if(err) {
             return res.sendStatus(500);
         } else {
+            // convert the uploaded wave file to mp3 and ogg
+            audio.convertToAll(fileName);
             return res.sendStatus(200);
         }});
 });
