@@ -3,4 +3,6 @@ node_modules
 bundle.js
 npm-debug.log
 config/secret.js
-public-/
+public-/bundle.js
+public-/audio-upload/
+
