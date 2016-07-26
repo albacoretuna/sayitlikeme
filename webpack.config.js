@@ -1,4 +1,6 @@
 /* globals __dirname */
+var LiveReloadPlugin = require('webpack-livereload-plugin');
+
 module.exports = {
     context: __dirname ,
     entry: __dirname + '/client/index.js',
@@ -17,5 +19,8 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new LiveReloadPlugin()
+    ]
 };
