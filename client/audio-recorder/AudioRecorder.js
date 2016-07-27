@@ -227,6 +227,7 @@ class AudioRecorder extends Component {
             <div className="audio-recorder" >
                 <div className={'register-step ' + (this.state.audio ? 'register-step-is-done ' : '')}>
                     <h2> 2. Record it </h2>
+                    <div>Press the button when you're ready! (should work on Chrome and Firefox on laptops)</div>
                 <button
                     className={buttonClass.join(' ')}
                     onClick={clickHandler && clickHandler.bind(this)}
@@ -244,6 +245,12 @@ class AudioRecorder extends Component {
                         {strings.upload}
                     </button>
                 </div>
+                <div className={!this.state.fileUploadSuccess ? 'is-hidden' : ''}>
+                    Congrats! Check your page at
+                    <a href={'/'+this.props.twitterId}>
+                        &nbsp; https://sayitlike.me/{this.props.twitterId}
+                    </a>
+                </div>
             </div>
         );
     }
@@ -260,6 +267,7 @@ AudioRecorder.propTypes = {
     onPlay: PropTypes.func,
     onRecordStart: PropTypes.func,
 
+    twitterId: PropTypes.string,
     strings: React.PropTypes.shape({
         play: PropTypes.string,
         playing: PropTypes.string,

@@ -57,7 +57,7 @@ passport.use(new TwitterStrategy({
 
 
 passport.serializeUser(function(user, cb) {
-    console.log('user serializsed as: ', user);
+    //console.log('user serializsed as: ', user);
     cb(null, user);
 });
 
@@ -71,9 +71,9 @@ passport.deserializeUser(function(obj, cb) {
  * @returns {string} the authenticated user's twitter handle  or {undefined}
  */
 function getCurrentUser(req) {
-    if(req.session && req.session.passport && req.session.passport.user && typeof req.session.passport.user === 'string') {
-        console.log('user in getcurrentuser', req.session.passport.user);
-        return req.session.passport.user;
+    if(req.session && req.session.passport && req.session.passport.user && typeof req.session.passport.user.twitterId === 'string') {
+        //console.log('user in getcurrentuser', req.session.passport.user);
+        return req.session.passport.user.twitterId;
     }
     return undefined;
 }
@@ -82,7 +82,7 @@ function getCurrentUser(req) {
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 //TODO move secret to secrets
-app.use(require('express-session')({ secret: 'asdfbasd234SDKJ!@#$@#$', resave: true, saveUninitialized: true  }));
+app.use(require('express-session')({ secret: secrets.session.secret, resave: true, saveUninitialized: true  }));
 
 // Initialize Passport and restore authentication state, if any, from the
 // session.
@@ -102,6 +102,7 @@ app.use('/public-/', express.static(path.resolve(__dirname,'../public-/')));
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.post('/upload-/audio', function(req, res){
     // user is not authenticated, send permission error
+    //console.log(getCurrentUser(req));
     if(!getCurrentUser(req)) {
         return res.sendStatus(403);
     }

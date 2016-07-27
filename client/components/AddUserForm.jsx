@@ -53,6 +53,7 @@ const AddUserForm = React.createClass({
                         @{this.props.currentUser.twitterId}
                     </a>
                 </h5>
+                <h6>Follow these 3 steps</h6>
                 <div className="row">
                     <div
                         className={'register-step '+ (this.state.formSubmittedSuccess || this.props.currentUser.name ? ' register-step-is-done ' : '')}>
@@ -69,7 +70,7 @@ const AddUserForm = React.createClass({
                                 </div>
                                 <div className="six columns">
                                     <label htmlFor="name-clarification">
-                                        How to pronounce it?
+                                        Pronounciation hint? (Optional)
                                     </label>
                                     <input
                                         name="name-clarification"
@@ -78,7 +79,7 @@ const AddUserForm = React.createClass({
                                         defaultValue={this.props.currentUser.nameClarification}
                                         placeholder="e.g. rhymes with Sun"/>
                                 </div>
-                                <label htmlFor="notes">Notes</label>
+                                <label htmlFor="notes">Notes (Optional)</label>
                                 <textarea
                                     name="notes"
                                     className="u-full-width"
@@ -93,7 +94,7 @@ const AddUserForm = React.createClass({
                         </form>
                         <FormSuccessMessage shouldHide={!this.state.formSubmittedSuccess}/>
                     </div>
-                    <AudioRecorder/>
+                    <AudioRecorder twitterId={this.props.currentUser.twitterId}/>
                 </div>
             </div>
         );
