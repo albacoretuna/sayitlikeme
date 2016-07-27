@@ -5,3 +5,11 @@ body {
 .is-hidden {
     display: none;
 }
+
+.button-is-disabled {
+    color: grey;
+}
+
+.register-step-is-done {
+    background: rgba(98, 202, 106, 0.38);
+}

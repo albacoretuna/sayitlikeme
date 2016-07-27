@@ -43,20 +43,23 @@ const AddUserForm = React.createClass({
     render() {
         return (
             <div>
-                <h2> 1. Enter Your Name </h2>
-                <form action="/api/update-" onSubmit={this.handleSubmit}>
-                    <h3>
-                        twitter handle
-                        <b>
-                        <a href={`https://twitter.com/${this.props.currentUser}`}> @{this.props.currentUser}
-                        </a> </b>
-            </h3>
-                    <lable htmlFor="name">Name: </lable> <input name="name" onChange={this.handleNameChange}/>
-                    <lable htmlFor="name-clarification">How to pronounce it? </lable> <input name="name-clarification" onChange={this.handleNameClarificationChange}/>
-                    <button type="submit" disabled={this.state.isSubmitDisabled}>Save</button>
-                </form>
-                <FormSuccessMessage shouldHide={!this.state.formSubmittedSuccess}/>
-                <h2> 2. Record it </h2>
+                <h3>
+                    Your Twitter handle:
+                    <b>
+                    <a href={`https://twitter.com/${this.props.currentUser}`}> @{this.props.currentUser}</a>
+                    </b>
+                </h3>
+                <div className={'register-step '+ (this.state.formSubmittedSuccess ? ' register-step-is-done ' : '')}>
+                    <h2> 1. Enter Your Name </h2>
+                    <form action="/api/update-" onSubmit={this.handleSubmit}>
+                        <lable htmlFor="name">Name: </lable>
+                        <input name="name" onChange={this.handleNameChange}/>
+                        <lable htmlFor="name-clarification">How to pronounce it? </lable>
+                        <input name="name-clarification" onChange={this.handleNameClarificationChange}/>
+                        <button type="submit" disabled={this.state.isSubmitDisabled}>Save</button>
+                    </form>
+                    <FormSuccessMessage shouldHide={!this.state.formSubmittedSuccess}/>
+                </div>
                 <AudioRecorder/>
             </div>
         );

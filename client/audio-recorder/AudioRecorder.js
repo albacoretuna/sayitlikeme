@@ -142,6 +142,14 @@ class AudioRecorder extends Component {
         // sorry for this, but couldn't reset the audio blob anyhow, so had to reload the whole page!
         window.location.reload();
     }
+    confirmUpload(data) {
+        if(data.status === 200 ) {
+            this.setState({
+                fileUploadSuccess: true
+            });
+
+        }
+    }
     uploadAudio() {
         var blobToBase64 = function(blob, cb) {
             var reader = new FileReader();
@@ -152,9 +160,10 @@ class AudioRecorder extends Component {
             };
             reader.readAsDataURL(blob);
         };
+        var _self = this;
         blobToBase64(this.state.audio, function(base64){ // encode
             var data = {'blob': base64};
-            axios.post(apiUrl + '/upload-/audio', data).then((resp) => console.log(resp));
+            axios.post(apiUrl + '/upload-/audio', data).then(_self.confirmUpload.bind(_self));
         });
     }
 
@@ -184,14 +193,14 @@ class AudioRecorder extends Component {
         const strings = this.props.strings;
 
         let buttonText;
-        let buttonClass = ['AudioRecorder-button'];
+        let buttonClass = ['audiorecroder-button'];
         let audioButtons;
         let clickHandler;
         if(this.state.audio) {
-            buttonClass.push('hasAudio');
+            buttonClass.push('has-audio');
 
             if(this.state.playing) {
-                buttonClass.push('isPlaying');
+                buttonClass.push('is-playing');
                 buttonText = strings.playing;
             } else {
                 buttonText = strings.play;
@@ -199,8 +208,7 @@ class AudioRecorder extends Component {
             }
 
             audioButtons = [
-                <button key="remove" className="AudioRecorder-remove" onClick={this.removeAudio.bind(this)}>{strings.remove}</button>,
-                <button key="upload" className="AudioRecorder-upload" onClick={this.uploadAudio.bind(this)}>{strings.upload}</button>
+                <button key="remove" className="audiorecorder-remove" onClick={this.removeAudio.bind(this)}>{strings.remove}</button>,
             ];
 
         } else {
@@ -215,7 +223,10 @@ class AudioRecorder extends Component {
         }
 
         return (
-            <div className="AudioRecorder" >
+
+            <div className="audio-recorder" >
+                <div className={'register-step ' + (this.state.audio ? 'register-step-is-done ' : '')}>
+                    <h2> 2. Record it </h2>
                 <button
                     className={buttonClass.join(' ')}
                     onClick={clickHandler && clickHandler.bind(this)}
@@ -223,6 +234,16 @@ class AudioRecorder extends Component {
                     {buttonText}
                 </button>
                 {audioButtons}
+                </div>
+                <div className={'register-step ' + (this.state.fileUploadSuccess ? 'register-step-is-done ' : '')}>
+                    <h2>3. Upload the recording </h2>
+                    <button key="upload"
+                        className={'audiorecorder-upload ' + (!this.state.audio ? 'button-is-disabled' : '')}
+                        onClick={this.uploadAudio.bind(this)}
+                        disabled={!this.state.audio}>
+                        {strings.upload}
+                    </button>
+                </div>
             </div>
         );
     }
