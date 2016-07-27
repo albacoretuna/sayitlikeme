@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import { Router, Route, browserHistory} from 'react-router';
+import { Router, Route, IndexRoute, browserHistory} from 'react-router';
 
 // react components
 import MainLayout from './components/MainLayout.jsx';
@@ -17,6 +17,7 @@ const App = React.createClass({
             <div>
                 <Router history={browserHistory}>
                     <Route path="/" component={MainLayout}>
+                        <IndexRoute component={Homepage} />
                         <Route path="home-" component={Homepage}/>
                         <Route path="search-" component={Search}/>
                         <Route path="add-" component={AddUser}/>
