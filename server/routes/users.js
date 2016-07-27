@@ -7,9 +7,19 @@ const router = express.Router();
 router.route('/current-user').get(function(req, res) {
     // check if authenticated
     if(req.session.passport) {
-        res.json({'success' : req.session.passport.user});
+        res.json({
+            'status' :
+                { 'success' :
+                    {'currentUser': req.session.passport.user}
+                }
+        });
     } else {
-        res.json({'fail':'no user authenticated'});
+        res.json({
+            'status' :
+                { 'fail' :
+                    {'message': 'No user authenticated'}
+                }
+        });
     }
 });
 router.route('/update').post(function(req, res) {
