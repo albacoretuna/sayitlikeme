@@ -39,7 +39,6 @@
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "express-session": "^1.14.0",
-    "fluent-ffmpeg": "^2.1.0",
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
     "passport-twitter": "^1.0.4",
