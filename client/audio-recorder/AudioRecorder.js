@@ -9,7 +9,11 @@ class AudioRecorder extends Component {
 
         this.buffers = [[], []];
         this.bufferLength = 0;
-        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        try {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch(e) {
+            console.log('Recording not available ', e);
+        }
         this.sampleRate = this.audioContext.sampleRate;
         this.recordingStream = null;
         this.playbackSource = null;
@@ -28,6 +32,9 @@ class AudioRecorder extends Component {
         if(nextState.duration >= MAX_DURATION && nextState.recording === true) {
             this.stopRecording();
         }
+    }
+    componentWillUnmount() {
+        this.audioContext.close();
     }
     startRecording() {
         navigator.getUserMedia = navigator.getUserMedia ||
