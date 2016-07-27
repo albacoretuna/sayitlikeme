@@ -17,6 +17,9 @@ const AddUserForm = React.createClass({
     handleNameClarificationChange(event) {
         this.setState({nameClarification: event.target.value});
     },
+    handleNotesChange(event) {
+        this.setState({notes: event.target.value});
+    },
     confirmSubmission(data) {
         if(data.status === 200 ) {
             this.setState({
@@ -35,7 +38,8 @@ const AddUserForm = React.createClass({
         const data =  {
             twitterId: this.props.currentUser.twitterId,
             name: this.state.name,
-            nameClarification: this.state.nameClarification
+            nameClarification: this.state.nameClarification,
+            notes: this.state.notes
         };
         axios.post(`${apiUrl}/api-/update`, data)
             .then(this.confirmSubmission);
@@ -43,24 +47,54 @@ const AddUserForm = React.createClass({
     render() {
         return (
             <div>
-                <h3>
-                    Your Twitter handle:
-                    <b>
-                    <a href={`https://twitter.com/${this.props.currentUser.twitterId}`}> @{this.props.currentUser.twitterId}</a>
-                    </b>
-                </h3>
-                <div className={'register-step '+ (this.state.formSubmittedSuccess || this.props.currentUser.name ? ' register-step-is-done ' : '')}>
-                    <h2> 1. Enter Your Name </h2>
-                    <form action="/api/update-" onSubmit={this.handleSubmit}>
-                        <lable htmlFor="name">Name: </lable>
-                        <input name="name" onChange={this.handleNameChange} defaultValue={this.props.currentUser.name} required/>
-                        <lable htmlFor="name-clarification">How to pronounce it? </lable>
-                        <input name="name-clarification" onChange={this.handleNameClarificationChange} defaultValue={this.props.currentUser.nameClarification}/>
-                        <button type="submit" disabled={this.state.isSubmitDisabled}>Save</button>
-                    </form>
-                    <FormSuccessMessage shouldHide={!this.state.formSubmittedSuccess}/>
+                <h5>
+                    For Twitter handle: &nbsp;
+                    <a href={`https://twitter.com/${this.props.currentUser.twitterId}`}>
+                        @{this.props.currentUser.twitterId}
+                    </a>
+                </h5>
+                <div className="row">
+                    <div
+                        className={'register-step '+ (this.state.formSubmittedSuccess || this.props.currentUser.name ? ' register-step-is-done ' : '')}>
+                        <h2> 1. Enter Your Name </h2>
+                        <form action="/api/update-" onSubmit={this.handleSubmit}>
+                            <div className="row">
+                                <div className="six columns">
+                                    <label htmlFor="name">Name* </label>
+                                    <input name="name"
+                                        type="text"
+                                        onChange={this.handleNameChange}
+                                        defaultValue={this.props.currentUser.name}
+                                        required/>
+                                </div>
+                                <div className="six columns">
+                                    <label htmlFor="name-clarification">
+                                        How to pronounce it?
+                                    </label>
+                                    <input
+                                        name="name-clarification"
+                                        type="text"
+                                        onChange={this.handleNameClarificationChange}
+                                        defaultValue={this.props.currentUser.nameClarification}
+                                        placeholder="e.g. rhymes with Sun"/>
+                                </div>
+                                <label htmlFor="notes">Notes</label>
+                                <textarea
+                                    name="notes"
+                                    className="u-full-width"
+                                    onChange={this.handleNotesChange}
+                                    value={this.props.currentUser.notes}
+                                    placeholder="e.g I prefer my friends to use my first name. Or my aunt Jane chose this name for me">
+                                </textarea>
+                            </div>
+                            <button
+                                type="submit"
+                                disabled={this.state.isSubmitDisabled}> Save </button>
+                        </form>
+                        <FormSuccessMessage shouldHide={!this.state.formSubmittedSuccess}/>
+                    </div>
+                    <AudioRecorder/>
                 </div>
-                <AudioRecorder/>
             </div>
         );
     }

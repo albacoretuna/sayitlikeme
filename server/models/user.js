@@ -3,10 +3,9 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     twitterId: { type: String, index: { unique: true }, lowercase: true, trim: true},
-    recordingPath: String,
     name: String,
     nameClarification: String,
-    prefferedName: String,
+    notes: String,
     updated_at: Date
 });
 

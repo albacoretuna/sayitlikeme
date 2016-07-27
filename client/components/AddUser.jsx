@@ -27,7 +27,8 @@ const AddUser = React.createClass({
     render() {
         return (
             <div>
-                <h1> Register And Record Pronounciation </h1>
+                <h1> Register </h1>
+                <h4> To help them pronounce the name with grace! </h4>
 
                 {this.state.userInfo.twitterId ? <AddUserForm currentUser={this.state.userInfo}/> : <Login/>}
 

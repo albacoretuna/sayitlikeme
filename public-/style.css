@@ -1,3 +1,8 @@
+/* sayitlike.me custom styles */
+/**
+ * Colors
+ * Green tick: color: #009688;
+*/
 body {
     background: white;
 }
@@ -9,15 +14,16 @@ body {
 .button-is-disabled {
     color: grey;
 }
-
-.register-step-is-done {
-    background: #00BCD4;
-    padding: 10px;
+.register-step {
+    padding-top: 10px;
     border-top: 1px solid #9E9E9E;
+}
+.register-step-is-done {
+    color: rgba(0, 0, 0, 0.4);
 }
 .register-step-is-done > h2::before {
     content: "✓";
-    color: #FFEB3B;
+    color: #009688;
     font-size: 30px;
 }
 .navigation-menue > li {
