@@ -11,5 +11,16 @@ body {
 }
 
 .register-step-is-done {
-    background: rgba(98, 202, 106, 0.38);
+    background: #00BCD4;
+    padding: 10px;
+    border-top: 1px solid #9E9E9E;
 }
+.register-step-is-done > h2::before {
+    content: "✓";
+    color: #FFEB3B;
+    font-size: 30px;
+}
+.navigation-menue > li {
+    display: inline-block;
+}
+
