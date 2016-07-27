@@ -38,38 +38,15 @@ passport.use(new TwitterStrategy({
     callbackURL: secrets.twitterAuth.callbackURL
 },
     function(token, tokenSecret, profile, cb) {
-        // console.log(JSON.stringify(profile));
         User.findOne({ twitterId: profile.username }, function (err, user) {
-             //  console.log(JSON.stringify(user));
             return cb(err, user);
         });
-        /*
-        User.findOneAndUpdate(
-            {'twitterId':profile.username},
-            user,
-            {
-                upsert:true
-            },
-            function(err, user){
-                if (err) return res.send(500, { error: err });
-                return cb(err, user);
-            });
-         */
     })
 );
 
 
-// Configure Passport authenticated session persistence.
-//
-// In order to restore authentication state across HTTP requests, Passport needs
-// to serialize users into and deserialize users out of the session.  In a
-// production-quality application, this would typically be as simple as
-// supplying the user ID when serializing, and querying the user record by ID
-// from the database when deserializing.  However, due to the fact that this
-// example does not have a database, the complete Twitter profile is serialized
-// and deserialized.
 passport.serializeUser(function(user, cb) {
-    cb(null, user.twitterId);
+    cb(null, user);
 });
 
 passport.deserializeUser(function(obj, cb) {
@@ -82,8 +59,9 @@ passport.deserializeUser(function(obj, cb) {
  * @returns {string} the authenticated user's twitter handle  or {undefined}
  */
 function getCurrentUser(req) {
-    if(req.session && req.session.passport && typeof req.session.passport.user === 'string') {
-        return req.session.passport.user;
+    if(req.session && req.session.passport && req.session.passport.user && typeof req.session.passport.user.twitterId === 'string') {
+        console.log('user in getcurrentuser', req.session.passport.user);
+        return req.session.passport.user.twitterId;
     }
     return undefined;
 }

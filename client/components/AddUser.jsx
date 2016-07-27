@@ -16,9 +16,11 @@ const AddUser = React.createClass({
         axios.get(`${apiUrl}/api-/current-user`)
             .then( response => {
                 let status = response.data.status;
+                let currentUser;
                 // user is authenticated, should see the audio recording form
                 if (status.success) {
-                    this.setState({userInfo : {twitterId: response.data.status.success.currentUser}});
+                    currentUser = response.data.status.success.currentUser;
+                    this.setState({userInfo : currentUser});
                 }
             });
     },
@@ -27,7 +29,7 @@ const AddUser = React.createClass({
             <div>
                 <h1> Register And Record Pronounciation </h1>
 
-                {this.state.userInfo.twitterId ? <AddUserForm currentUser={this.state.userInfo.twitterId}/> : <Login/>}
+                {this.state.userInfo.twitterId ? <AddUserForm currentUser={this.state.userInfo}/> : <Login/>}
 
             </div>);
     }

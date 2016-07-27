@@ -9,7 +9,7 @@ const AddUserForm = React.createClass({
         };
     },
     propTypes: {
-        currentUser: React.PropTypes.string
+        currentUser: React.PropTypes.object
     },
     handleNameChange(event) {
         this.setState({name: event.target.value});
@@ -33,7 +33,7 @@ const AddUserForm = React.createClass({
             formSubmittedSuccess: true
         });
         const data =  {
-            twitterId: this.props.currentUser,
+            twitterId: this.props.currentUser.twitterId,
             name: this.state.name,
             nameClarification: this.state.nameClarification
         };
@@ -46,16 +46,16 @@ const AddUserForm = React.createClass({
                 <h3>
                     Your Twitter handle:
                     <b>
-                    <a href={`https://twitter.com/${this.props.currentUser}`}> @{this.props.currentUser}</a>
+                    <a href={`https://twitter.com/${this.props.currentUser.twitterId}`}> @{this.props.currentUser.twitterId}</a>
                     </b>
                 </h3>
-                <div className={'register-step '+ (this.state.formSubmittedSuccess ? ' register-step-is-done ' : '')}>
+                <div className={'register-step '+ (this.state.formSubmittedSuccess || this.props.currentUser.name ? ' register-step-is-done ' : '')}>
                     <h2> 1. Enter Your Name </h2>
                     <form action="/api/update-" onSubmit={this.handleSubmit}>
                         <lable htmlFor="name">Name: </lable>
-                        <input name="name" onChange={this.handleNameChange}/>
+                        <input name="name" onChange={this.handleNameChange} defaultValue={this.props.currentUser.name} required/>
                         <lable htmlFor="name-clarification">How to pronounce it? </lable>
-                        <input name="name-clarification" onChange={this.handleNameClarificationChange}/>
+                        <input name="name-clarification" onChange={this.handleNameClarificationChange} defaultValue={this.props.currentUser.nameClarification}/>
                         <button type="submit" disabled={this.state.isSubmitDisabled}>Save</button>
                     </form>
                     <FormSuccessMessage shouldHide={!this.state.formSubmittedSuccess}/>
@@ -68,4 +68,7 @@ const AddUserForm = React.createClass({
 const FormSuccessMessage = (props) => <div className={props.shouldHide ? 'is-hidden' : ''}>
     Form Submitted Successfully! Now record the pronounciation!
 </div>;
+FormSuccessMessage.propTypes = {
+    shouldHide: React.PropTypes.bool
+};
 export default AddUserForm;
