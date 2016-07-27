@@ -1,8 +1,8 @@
 import React from 'react';
-import Login from './Login.jsx';
+import Search from './Search.jsx';
 const Homepage = () => <div>
                                 <h1> Home page </h1>
                                 <div>Yes this is homepage </div>
-                                <Login />
+                                <Search />
                             </div>;
 export default Homepage;
