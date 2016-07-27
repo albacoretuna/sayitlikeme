@@ -7,8 +7,9 @@ const router = express.Router();
 router.route('/current-user').get(function(req, res) {
     // check if authenticated
     if(req.session.passport && req.session.passport.user) {
+        console.log('user in /current-user session', req.session.passport.user);
         // get twitter id from passport.user in session, and look it up in Mongo
-        User.find({twitterId:req.session.passport.user}, function(err, user) {
+        User.find({twitterId:req.session.passport.user.twitterId}, function(err, user) {
             if (err) { return res.sendStatus(500); }
             res.json({ 'status' : { 'success' : {'currentUser': user[0]} } });
         });

@@ -39,7 +39,18 @@ passport.use(new TwitterStrategy({
 },
     function(token, tokenSecret, profile, cb) {
         User.findOne({ twitterId: profile.username }, function (err, user) {
-            return cb(err, user);
+            if(user) {
+                return cb(err, user);
+            } else {
+                let newUser = new User({ twitterId: profile.username });
+                newUser.save(function(err){
+                    if(err) {
+                        return err;
+                    } else {
+                        return cb(err, newUser);
+                    }
+                });
+            }
         });
     })
 );
