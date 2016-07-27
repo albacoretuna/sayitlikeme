@@ -8,6 +8,7 @@ import AddUser from './components/AddUser.jsx';
 import Profile from './components/Profile.jsx';
 import Homepage from './components/Homepage.jsx';
 import Search from './components/Search.jsx';
+import Login from './components/Login.jsx';
 
 
 // App is responsible for Routing the whole app
@@ -21,6 +22,7 @@ const App = React.createClass({
                         <Route path="home-" component={Homepage}/>
                         <Route path="search-" component={Search}/>
                         <Route path="add-" component={AddUser}/>
+                        <Route path="login-" component={Login}/>
                         <Route path=":username" component={Profile}/>
                     </Route>
                 </Router>

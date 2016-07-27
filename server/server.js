@@ -46,6 +46,7 @@ passport.use(new TwitterStrategy({
 
 
 passport.serializeUser(function(user, cb) {
+    console.log('user serializsed as: ', user);
     cb(null, user);
 });
 
@@ -59,9 +60,9 @@ passport.deserializeUser(function(obj, cb) {
  * @returns {string} the authenticated user's twitter handle  or {undefined}
  */
 function getCurrentUser(req) {
-    if(req.session && req.session.passport && req.session.passport.user && typeof req.session.passport.user.twitterId === 'string') {
+    if(req.session && req.session.passport && req.session.passport.user && typeof req.session.passport.user === 'string') {
         console.log('user in getcurrentuser', req.session.passport.user);
-        return req.session.passport.user.twitterId;
+        return req.session.passport.user;
     }
     return undefined;
 }
@@ -69,6 +70,7 @@ function getCurrentUser(req) {
 // app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
+//TODO move secret to secrets
 app.use(require('express-session')({ secret: 'asdfbasd234SDKJ!@#$@#$', resave: true, saveUninitialized: true  }));
 
 // Initialize Passport and restore authentication state, if any, from the
@@ -78,7 +80,7 @@ app.use(passport.session());
 
 //This is our route middleware
 app.get('/auth/twitter/callback',
-    passport.authenticate('twitter', { failureRedirect: '/login' }),
+    passport.authenticate('twitter', { failureRedirect: '/login-' }),
     function(req, res) {
         // Successful authentication, redirect home.
         // console.log('request.session.passport.user in successredirect looks like', req.session.passport.user);
@@ -106,11 +108,6 @@ app.post('/upload-/audio', function(req, res){
         }});
 });
 app.use('*',function(req,res) {
-    if(req.session.passport) {
-        // console.log('request.session.passport.user in get * looks like', req.session.passport.user);
-    } else {
-        //console.log('passport not defined');
-    }
     res.sendFile('index.html', {root: path.resolve(__dirname,'../client/')});
 });
 
