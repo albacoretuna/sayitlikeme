@@ -25,7 +25,7 @@ const AddUser = React.createClass({
     render() {
         return (
             <div>
-                <h1> Add a new user</h1>
+                <h1> Register And Record Pronounciation </h1>
 
                 {this.state.userInfo.twitterId ? <AddUserForm currentUser={this.state.userInfo.twitterId}/> : <Login/>}
 

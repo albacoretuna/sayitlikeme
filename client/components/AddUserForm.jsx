@@ -17,27 +17,52 @@ const AddUserForm = React.createClass({
     handleNameClarificationChange(event) {
         this.setState({nameClarification: event.target.value});
     },
+    confirmSubmission(data) {
+        if(data.status === 200 ) {
+            this.setState({
+                isSubmitDisabled: false,
+                formSubmittedSuccess: true
+            });
+
+        }
+    },
     handleSubmit(event) {
         event.preventDefault();
-        this.setState({isSubmitDisabled: true});
-        //console.log('event', event);
-        const data =  { twitterId: this.props.currentUser, name: this.state.name, nameClarification: this.state.nameClarification };
-        //console.log('name was', data.name);
+        this.setState({
+            isSubmitDisabled: true,
+            formSubmittedSuccess: true
+        });
+        const data =  {
+            twitterId: this.props.currentUser,
+            name: this.state.name,
+            nameClarification: this.state.nameClarification
+        };
         axios.post(`${apiUrl}/api-/update`, data)
-            .then((response) => response.status === 200 ? this.setState({isSubmitDisabled: false}): null);
+            .then(this.confirmSubmission);
     },
     render() {
         return (
             <div>
+                <h2> 1. Enter Your Name </h2>
                 <form action="/api/update-" onSubmit={this.handleSubmit}>
-                    <h2>Twitter Handle: {this.props.currentUser}</h2>
+                    <h3>
+                        twitter handle
+                        <b>
+                        <a href={`https://twitter.com/${this.props.currentUser}`}> @{this.props.currentUser}
+                        </a> </b>
+            </h3>
                     <lable htmlFor="name">Name: </lable> <input name="name" onChange={this.handleNameChange}/>
                     <lable htmlFor="name-clarification">How to pronounce it? </lable> <input name="name-clarification" onChange={this.handleNameClarificationChange}/>
                     <button type="submit" disabled={this.state.isSubmitDisabled}>Save</button>
                 </form>
+                <FormSuccessMessage shouldHide={!this.state.formSubmittedSuccess}/>
+                <h2> 2. Record it </h2>
                 <AudioRecorder/>
             </div>
         );
     }
 });
+const FormSuccessMessage = (props) => <div className={props.shouldHide ? 'is-hidden' : ''}>
+    Form Submitted Successfully! Now record the pronounciation!
+</div>;
 export default AddUserForm;

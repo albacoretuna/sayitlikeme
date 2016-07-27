@@ -183,7 +183,9 @@ class AudioRecorder extends Component {
     render() {
         const strings = this.props.strings;
 
-        let buttonText, buttonClass = ['AudioRecorder-button'], audioButtons;
+        let buttonText;
+        let buttonClass = ['AudioRecorder-button'];
+        let audioButtons;
         let clickHandler;
         if(this.state.audio) {
             buttonClass.push('hasAudio');

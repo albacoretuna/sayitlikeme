@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router';
 import Navigation from './Navigation.jsx';
 const MainLayout = React.createClass({
+    propTypes: {
+        children: React.PropTypes.element
+    },
     render() {
         return (
             <div>

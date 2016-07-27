@@ -1,3 +1,7 @@
 body {
     background: white;
 }
+
+.is-hidden {
+    display: none;
+}
