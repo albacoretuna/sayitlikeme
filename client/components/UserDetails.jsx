@@ -1,12 +1,14 @@
 import React from 'react';
+import AudioPlayer from './AudioPlayer.jsx';
 const UserDetails = (props) => {
     let twitterId = props.userInfo.twitterId;
+    let userInfo = props.userInfo;
     return(<div>
-        {console.log('props in UserDetails', props)}
         <h1>My name is  <b>{props.userInfo.name} </b></h1>
-        <h3>twitter handle <b> <a href={`https://twitter.com/${twitterId}`}> @{twitterId}</a></b></h3>
-        <p>Please call me like this: {props.userInfo.nameClarification}</p>
-        <AudioPlayer filename={props.userInfo.twitterId}/>
+        <h4>twitter handle <b> <a href={`https://twitter.com/${twitterId}`}> @{twitterId}</a></b></h4>
+        <AudioPlayer filename={userInfo.twitterId}/>
+        {userInfo.nameClarification ? <PronounicationHint hint={userInfo.nameClarification}/> : null}
+        {userInfo.notes ? <Notes notes={userInfo.notes}/> : null}
     </div>);
 };
 
@@ -17,28 +19,9 @@ UserDetails.propTypes = {
         nameClarification: React.PropTypes.string
     })
 };
-const AudioPlayer = (props) => {
-    const play = (event) => {
-        event.preventDefault();
-        let audio = event.target.firstChild;
-        audio.play();
-    };
-    return (
-        <div>
-            Click to listen how I pronounce it:
-            <a href="" onClick={play}>
-                <audio>
-                    Your browser does not support the <code>audio</code> element.
-                    <source src={`./public-/audio-upload/${props.filename}.mp3`} type="audio/mpeg" />
-                    <source src={`./public-/audio-upload/${props.filename}.ogg`} type="audio/ogg" />
-                    <source src={`./public-/audio-upload/${props.filename}.wav`} type="audio/wav" />
-                </audio>
-                &nbsp; ▸ play
-            </a>
-        </div>
-    );
-};
-AudioPlayer.propTypes = {
-    filename: React.PropTypes.string,
-};
 export default UserDetails;
+
+const PronounicationHint = (props) =>
+    <div><h5>Pronounciation hint:</h5> {props.hint}</div>;
+const Notes = (props) =>
+    <div><h5>Notes: </h5>{props.notes}</div>;

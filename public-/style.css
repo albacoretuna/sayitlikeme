@@ -87,6 +87,14 @@ body, html {
 .search-container-list {
     list-style: none;
 }
+
+/* Audio Player */
+.audio-player-play {
+    text-decoration: none;
+    padding: 10px;
+}
+
+
 /* Footer */
 .page-wrap {
   min-height: 100%;
