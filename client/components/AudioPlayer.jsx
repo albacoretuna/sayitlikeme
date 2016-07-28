@@ -9,7 +9,7 @@ const AudioPlayer = (props) => {
     return (
         <div>
             <h4> Listen to how I pronounce it:&nbsp;
-            <a href="" className="audio-player-play button button-primary" onClick={play}>
+            <a href="" className="audio-player-play" onClick={play}>
                 <audio>
                     Your browser does not support the <code>audio</code> element.
                     <source src={`./public-/audio-upload/${props.filename}.mp3`} type="audio/mpeg" />
