@@ -19,6 +19,13 @@ const Navigation = React.createClass({
                             Register
                         </Link>
                     </li>
+                    <li className="navigation-menue-item">
+                        <Link to="/about-"
+                            className="navigation-menue-link"
+                            activeClassName="navigation-menue-active">
+                            About
+                        </Link>
+                    </li>
                 </ul>
             </div>
         );

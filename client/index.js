@@ -9,23 +9,31 @@ import Profile from './components/Profile.jsx';
 import Homepage from './components/Homepage.jsx';
 import Search from './components/Search.jsx';
 import Login from './components/Login.jsx';
+import About from './components/About.jsx';
+import Footer from './components/Footer.jsx';
 
 
 // App is responsible for Routing the whole app
 const App = React.createClass({
     render() {
         return (
-            <div>
-                <Router history={browserHistory}>
-                    <Route path="/" component={MainLayout}>
-                        <IndexRoute component={Homepage} />
-                        <Route path="home-" component={Homepage}/>
-                        <Route path="search-" component={Search}/>
-                        <Route path="add-" component={AddUser}/>
-                        <Route path="login-" component={Login}/>
-                        <Route path=":username" component={Profile}/>
-                    </Route>
-                </Router>
+            <div className="react-root-component">
+                <div className="page-wrap">
+                    <div className="container">
+                        <Router history={browserHistory}>
+                            <Route path="/" component={MainLayout}>
+                                <IndexRoute component={Homepage} />
+                                <Route path="home-" component={Homepage}/>
+                                <Route path="search-" component={Search}/>
+                                <Route path="add-" component={AddUser}/>
+                                <Route path="login-" component={Login}/>
+                                <Route path="about-" component={About}/>
+                                <Route path=":username" component={Profile}/>
+                            </Route>
+                        </Router>
+                    </div>
+                </div>
+                <Footer/>
             </div>
         );
     }

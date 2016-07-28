@@ -3,15 +3,25 @@
  * Colors
  * Green tick: color: #009688;
 */
-body {
+body, html {
     background: white;
+    height: 100%;
 }
-
+.react-root-component,
+.react-goes-here
+{
+    height: 100%;
+}
 .is-hidden {
     display: none;
 }
 
 .button-is-disabled {
+    border-color: rgba(136, 136, 136, .7);
+    color: grey;
+}
+.button-is-disabled:hover {
+    border-color: rgba(136, 136, 136, .7);
     color: grey;
 }
 .register-step {
@@ -64,4 +74,32 @@ body {
 {
     color: #2d1e1e;
     text-decoration: none;
+}
+
+/* Footer */
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -80px;
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.site-footer, .page-wrap:after {
+  height: 80px;
+}
+.site-footer {
+  background: rgba(0, 188, 212, 0.48);
+}
+.footer-menue {
+    list-style: none;
+}
+.footer-menue > li {
+    display: inline-block;
+    padding: 10px;
+    margin-top: 10px;
+}
+.footer-menue > li > a {
+    color: #2d1e1e;
 }
