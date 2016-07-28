@@ -10,8 +10,15 @@ router.route('/current-user').get(function(req, res) {
         console.log('user in /current-user session', req.session.passport.user);
         // get twitter id from passport.user in session, and look it up in Mongo
         User.find({twitterId:req.session.passport.user.twitterId}, function(err, user) {
+            console.log('user in /current-user database', user[0]);
             if (err) { return res.sendStatus(500); }
-            res.json({ 'status' : { 'success' : {'currentUser': user[0]} } });
+            var decoratedUser = {
+                twitterId: user[0].twitterId,
+                name: user[0].name,
+                nameClarification: user[0].nameClarification,
+                notes: user[0].notes
+            };
+            res.json({ 'status' : { 'success' : {'currentUser': decoratedUser} } });
         });
     } else {
         res.json({ 'status' : { 'fail' : {'message': 'No user authenticated'} } });

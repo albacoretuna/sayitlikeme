@@ -34,7 +34,7 @@ const Profile = React.createClass({
     render() {
         return (
             <div>
-              {this.state.userInfo.name ? <UserDetails userInfo = {this.state.userInfo} /> : <Search userNotFound= {true} hideTitle={true}/>}
+              {this.state.userInfo.twitterId ? <UserDetails userInfo = {this.state.userInfo} /> : <Search userNotFound= {true} hideTitle={true}/>}
             </div>
             );
     }
