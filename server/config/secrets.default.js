@@ -6,7 +6,9 @@ module.exports = {
         'consumerKey'       : '',
         'consumerSecret'    : '',
         'callbackURL'       : ''
+    },
+    'session' : {
+        'secret': ''
     }
-
 
 };

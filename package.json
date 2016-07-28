@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "connect-ensure-login": "^0.1.1",
+    "connect-mongo": "^1.3.2",
     "cookie-parser": "^1.4.3",
     "express-session": "^1.14.0",
     "morgan": "^1.7.0",
