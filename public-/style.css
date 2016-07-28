@@ -51,3 +51,17 @@ body {
 .navigation-menue-link:focus {
     background-color: #eee;
 }
+
+.profile-created-overlay {
+    position: fixed;
+    top: 30vh;
+    background: #4CAF50;
+    padding: 10px;
+    color: white;
+}
+.profile-created-overlay-link,
+.profile-created-overlay-link:visited
+{
+    color: #2d1e1e;
+    text-decoration: none;
+}

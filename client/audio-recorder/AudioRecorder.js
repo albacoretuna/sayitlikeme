@@ -245,11 +245,17 @@ class AudioRecorder extends Component {
                         {strings.upload}
                     </button>
                 </div>
-                <div className={!this.state.fileUploadSuccess ? 'is-hidden' : ''}>
-                    Congrats! Check your page at
-                    <a href={'/'+this.props.twitterId}>
-                        &nbsp; https://sayitlike.me/{this.props.twitterId}
-                    </a>
+                <div className={'profile-created-overlay ' + (!this.state.fileUploadSuccess ? 'is-hidden' : '')}>
+                    <div className="container">
+                        <div className="ten columns">
+                            <h3>
+                                Congrats! Registration is complete. You can check your page at &nbsp;
+                                <a className="profile-created-overlay-link" href={'/'+this.props.twitterId}>
+                                    &nbsp; https://sayitlike.me/{this.props.twitterId}
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
