@@ -1,5 +1,4 @@
 /* eslint-env node */
-const fs = require('fs');
 const path = require('path');
 
 const express = require('express');
@@ -15,13 +14,14 @@ const users = require('./routes/users');
 const passport = require('passport');
 const TwitterStrategy  = require('passport-twitter').Strategy;
 const secrets = require('./config/secret.js');
+
+const audioUploader = require('./audio-uploader.js');
 //Create the Express app
 const app = express();
 
 const dbName = 'usersDb';
 const connectionString = 'mongodb://localhost:27017/' + dbName;
 
-const audio = require('./utils/audio.js');
 
 mongoose.connect(connectionString);
 app.use(function(req, res, next) {
@@ -64,19 +64,6 @@ passport.serializeUser(function(user, cb) {
 passport.deserializeUser(function(obj, cb) {
     cb(null, obj);
 });
-/**
- * getCurrentUser
- *
- * @param req
- * @returns {string} the authenticated user's twitter handle  or {undefined}
- */
-function getCurrentUser(req) {
-    if(req.session && req.session.passport && req.session.passport.user && typeof req.session.passport.user.twitterId === 'string') {
-        //console.log('user in getcurrentuser', req.session.passport.user);
-        return req.session.passport.user.twitterId;
-    }
-    return undefined;
-}
 // logging, parsing, and session handling.
 // app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
@@ -100,25 +87,7 @@ app.get('/auth/twitter/callback',
 app.use('/api-/', users);
 app.use('/public-/', express.static(path.resolve(__dirname,'../public-/')));
 app.get('/auth/twitter', passport.authenticate('twitter'));
-app.post('/upload-/audio', function(req, res){
-    // user is not authenticated, send permission error
-    //console.log(getCurrentUser(req));
-    if(!getCurrentUser(req)) {
-        return res.sendStatus(403);
-    }
-    // based on http://stackoverflow.com/a/24003932/3994190
-    const buf = Buffer.from(req.body.blob, 'base64'); // decode
-    const fileName = getCurrentUser(req);
-    let fullFilePath = path.join(__dirname, '..', '/public-/audio-upload/', fileName + '.wav');
-    fs.writeFile(fullFilePath, buf, function(err) {
-        if(err) {
-            return res.sendStatus(500);
-        } else {
-            // convert the uploaded wave file to mp3 and ogg
-            audio.convertToAll(fileName);
-            return res.sendStatus(200);
-        }});
-});
+app.post('/upload-/audio', audioUploader.handleUpload);
 app.use('*',function(req,res) {
     res.sendFile('index.html', {root: path.resolve(__dirname,'../client/')});
 });
