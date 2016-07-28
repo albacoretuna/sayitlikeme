@@ -76,6 +76,17 @@ body, html {
     text-decoration: none;
 }
 
+/* search area */
+.search-container {
+    background: rgba(0, 188, 212, 0.15);
+}
+.search-container-link {
+    color: #2d1e1e;
+    text-decoration: none;
+}
+.search-container-list {
+    list-style: none;
+}
 /* Footer */
 .page-wrap {
   min-height: 100%;

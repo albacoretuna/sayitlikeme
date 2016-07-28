@@ -9,7 +9,7 @@ const Profile = React.createClass({
             userInfo : {
                 twitterId: ''
             }
-        }
+        };
     },
     showUser(response) {
         if(!response) {
@@ -19,7 +19,8 @@ const Profile = React.createClass({
             userInfo : {
                 twitterId: response.twitterId,
                 name: response.name,
-                nameClarification: response.nameClarification
+                nameClarification: response.nameClarification,
+                notes: response.notes
             }
         });
     },
@@ -27,18 +28,15 @@ const Profile = React.createClass({
         let userName = this.props.params.username;
         axios.get(`${apiUrl}/api-/${userName}`)
              .then( response => {
-                 console.log('response is back', response);
                  this.showUser(response.data[0]);
              });
     },
     render() {
         return (
             <div>
-              {console.log('state.userInfo.name', typeof this.state.userInfo.name )}
-              {console.log('params', this.props.params.username )}
-              {this.state.userInfo.name ? <UserDetails userInfo = {this.state.userInfo} /> : <Search/>}
+              {this.state.userInfo.name ? <UserDetails userInfo = {this.state.userInfo} /> : <Search userNotFound= {true} hideTitle={true}/>}
             </div>
-            )
+            );
     }
 });
 

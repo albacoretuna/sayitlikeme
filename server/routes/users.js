@@ -40,5 +40,22 @@ router.route('/:twitterhandle').get(function(req, res) {
         res.json(users);
     });
 });
+router.route('/users/handles').get(function(req, res) {
+    User.find({}, function(err, users) {
+        users = users || [];
+        if (err) {
+            return res.sendStatus(500);
+        }
+        let usersTwitterHandles = users.map((user)=>user.twitterId);
+        res.json({
+            'status':
+            {'success':
+                {'users':
+                    usersTwitterHandles
+                }
+            }
+        });
+    });
+});
 
 module.exports = router;
