@@ -2,7 +2,7 @@ import React from 'react';
 import UserDetails from './UserDetails.jsx';
 import Search from './Search.jsx';
 import axios from 'axios';
-const apiUrl = 'http://127.0.0.1:8000';
+const apiUrl = '';
 const Profile = React.createClass({
     getInitialState() {
         return {

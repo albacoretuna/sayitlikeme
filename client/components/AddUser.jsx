@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Login from './Login.jsx';
 import AddUserForm from './AddUserForm.jsx';
-const apiUrl = 'http://127.0.0.1:8000';
+const apiUrl = '';
 
 const AddUser = React.createClass({
     getInitialState() {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import axios from 'axios';
-const apiUrl = 'http://127.0.0.1:8000';
+const apiUrl = '';
 
 const SearchBox = React.createClass({
     getInitialState() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import AudioRecorder from '../audio-recorder/AudioRecorder.js';
 import axios from 'axios';
-const apiUrl = 'http://127.0.0.1:8000';
+const apiUrl = '';
 const AddUserForm = React.createClass({
     getInitialState() {
         return {

@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import encodeWAV from './wav-encoder.js';
 import axios from 'axios';
-const apiUrl = 'http://127.0.0.1:8000';
+const apiUrl = '';
 class AudioRecorder extends Component {
     constructor(props) {
         super(props);
