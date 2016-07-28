@@ -4,5 +4,6 @@ bundle.js
 npm-debug.log
 config/secret.js
 public-/bundle.js
+public-/bundle.js.map
 public-/audio-upload/
 .codemod.bookmark
