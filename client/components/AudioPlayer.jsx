@@ -12,9 +12,9 @@ const AudioPlayer = (props) => {
             <a href="" className="audio-player-play" onClick={play}>
                 <audio>
                     Your browser does not support the <code>audio</code> element.
-                    <source src={`./public-/audio-upload/${props.filename}.mp3`} type="audio/mpeg" />
-                    <source src={`./public-/audio-upload/${props.filename}.ogg`} type="audio/ogg" />
-                    <source src={`./public-/audio-upload/${props.filename}.wav`} type="audio/wav" />
+                    <source src={`./audio-upload/${props.filename}.mp3`} type="audio/mpeg" />
+                    <source src={`./audio-upload/${props.filename}.ogg`} type="audio/ogg" />
+                    <source src={`./audio-upload/${props.filename}.wav`} type="audio/wav" />
                 </audio>
                 <strong> ▸ </strong>&nbsp; play
             </a>
