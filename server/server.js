@@ -90,11 +90,13 @@ app.get('/auth/twitter/callback',
         res.redirect('/add-');
     });
 app.use('/api-/', users);
+/*
 app.use('/public-/', express.static(path.resolve(__dirname,'../public-/')));
+*/
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.post('/upload-/audio', audioUploader.handleUpload);
 app.use('*',function(req,res) {
-    res.sendFile('index.html', {root: path.resolve(__dirname,'../client/')});
+    res.sendFile('index.html', {root: path.resolve(__dirname,'../public-/')});
 });
 
 module.exports = app;
