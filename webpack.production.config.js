@@ -1,5 +1,4 @@
 /* globals __dirname */
-const LiveReloadPlugin = require('webpack-livereload-plugin');
 const webpack = require('webpack');
 module.exports = {
     devtool: 'cheap-module-source-map',
@@ -22,7 +21,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new LiveReloadPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
