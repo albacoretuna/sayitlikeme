@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "echo \"Running nodejs server...\" &&  nodemon --watch server ./server/bin/www.js",
     "start": "webpack -w",
-    "build": "NODE_ENV=production webpack -p --config webpack.production.config.js"
+    "build": "NODE_ENV=production webpack -p --config webpack.production.config.js",
+    "server:production": "NODE_ENV=production pm2 start server/bin/www.js"
   },
   "repository": {
     "type": "git",
