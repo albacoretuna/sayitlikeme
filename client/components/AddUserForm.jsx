@@ -49,9 +49,8 @@ const AddUserForm = React.createClass({
             <div>
                 <h5>
                     For Twitter handle: &nbsp;
-                    <a href={`https://twitter.com/${this.props.currentUser}`}>
-                        @{this.props.currentUser}
-                    </a>
+                            @{this.props.currentUser}
+                    <a href="/logout-"> (Change User) </a>
                 </h5>
                 <h6>Follow these 3 steps</h6>
                 <div className="row">

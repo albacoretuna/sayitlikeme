@@ -36,6 +36,9 @@ body, html {
     color: #009688;
     font-size: 30px;
 }
+.navigation-menue {
+    display: flex;
+}
 .navigation-menue > li {
     display: inline-block;
 }
@@ -54,7 +57,9 @@ body, html {
     white-space: nowrap;
     padding: .5em 1em;
 }
-
+.navigation-menue-panel {
+    margin-left: auto;
+}
 
 .navigation-menue-active,
 .navigation-menue-link:hover,

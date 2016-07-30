@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 const Navigation = React.createClass({
+    propTypes: {
+        isLoggedIn: React.PropTypes.bool
+    },
     render() {
         return (
             <div>
@@ -26,9 +29,17 @@ const Navigation = React.createClass({
                             About
                         </Link>
                     </li>
+                    {this.props.isLoggedIn ? <UserPanelMenue/> : null}
                 </ul>
             </div>
         );
     }
 });
+const UserPanelMenue = () => <div className="navigation-menue-panel">
+    <li className="navigation-menue-item">
+        <a href="/logout-" className="navigation-menue-link">
+            Logout
+        </a>
+    </li>
+</div>;
 export default Navigation;
