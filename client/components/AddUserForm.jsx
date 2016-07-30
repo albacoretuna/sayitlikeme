@@ -52,11 +52,12 @@ const AddUserForm = React.createClass({
                             @{this.props.currentUser}
                     <a href="/logout-"> (Change User) </a>
                 </h5>
-                <h6>Follow steps 1 to 3, you need a microphone for this!</h6>
+                <h6>Follow steps 1 to 3, your device needs to have a microphone</h6>
                 <div className="row">
                     <div
                         className={'register-step '+ (this.state.formSubmittedSuccess || this.props.currentUser.name ? ' register-step-is-done ' : '')}>
                         <h2> 1. Enter Your Name </h2>
+                        {/* TODO prefill the form values from database if any*/}
                         <form action="/api/update-" onSubmit={this.handleSubmit}>
                             <div className="row">
                                 <div className="six columns">

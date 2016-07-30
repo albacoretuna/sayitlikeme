@@ -7,6 +7,13 @@ class AudioRecorder extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            recording: false,
+            audioRecordingIsSupported: true,
+            playing: false,
+            audio: props.audio
+        };
+
         this.buffers = [[], []];
         this.bufferLength = 0;
         try {
@@ -18,11 +25,6 @@ class AudioRecorder extends Component {
         this.recordingStream = null;
         this.playbackSource = null;
 
-        this.state = {
-            recording: false,
-            playing: false,
-            audio: props.audio
-        };
     }
     //Stop recording if it's longer than length
     componentWillUpdate(nextProp, nextState) {
@@ -41,6 +43,12 @@ class AudioRecorder extends Component {
             navigator.webkitGetUserMedia ||
             navigator.mozGetUserMedia ||
             navigator.msGetUserMedia;
+        if(typeof navigator.getUserMedia !== 'function') {
+            this.setState({
+                audioRecordingIsSupported: false
+            });
+            return;
+        }
         navigator.getUserMedia({ audio: true }, (stream) => {
             const gain = this.audioContext.createGain();
             const audioSource = this.audioContext.createMediaStreamSource(stream);
@@ -223,8 +231,9 @@ class AudioRecorder extends Component {
         }
 
         return (
-
-            <div className="audio-recorder" >
+            <div>
+            <AudioRecordingNotSupported isVisible={!this.state.audioRecordingIsSupported}/>
+            <div className={'audio-recorder' + (this.state.audioRecordingIsSupported ? '' : ' is-hidden ')}>
                 <div className={'register-step ' + (this.state.audio ? 'register-step-is-done ' : '')}>
                     <h2> 2. Record it </h2>
                     <div>Press the button when you're ready! (should work on Chrome and Firefox on laptops)</div>
@@ -258,6 +267,7 @@ class AudioRecorder extends Component {
                     </div>
                 </div>
             </div>
+        </div>
         );
     }
 }
@@ -296,5 +306,12 @@ AudioRecorder.defaultProps = {
         upload: 'Upload'
     }
 };
-
+const AudioRecordingNotSupported = (props) => <div className={(props.isVisible ? '' : 'is-hidden')}>
+    <h1> Oh sorry! something's wrong with audio recording </h1>
+    <h3>Please try registering using latest
+        Chrome or Firefox browsers on a desktop, laptop, or android any android phone or tablet </h3>
+</div>;
+AudioRecordingNotSupported.propTypes = {
+    isVisible: PropTypes.bool
+};
 export default AudioRecorder;
