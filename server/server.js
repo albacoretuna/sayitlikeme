@@ -6,12 +6,13 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-
 const User = require('./models/user');
 //routes are defined here
 const users = require('./routes/users');
 
+const logger = require('./logger.js');
 // twitter authentication with passport
+
 const passport = require('passport');
 const TwitterStrategy  = require('passport-twitter').Strategy;
 const secrets = require('./config/secret.js');
@@ -41,6 +42,9 @@ passport.use(new TwitterStrategy({
 },
     function(token, tokenSecret, profile, cb) {
         User.findOne({ twitterId: profile.username }, function (err, user) {
+            if(err) {
+                logger.log('error', 'Twitter strategy problem', {err: err});
+            }
             if(user) {
                 return cb(err, user);
             } else {
@@ -59,15 +63,14 @@ passport.use(new TwitterStrategy({
 
 
 passport.serializeUser(function(user, cb) {
-    //console.log('user serializsed as: ', user);
+    winston.log('info', 'user serializsed as: ', {user: user});
     cb(null, user);
 });
 
 passport.deserializeUser(function(obj, cb) {
     cb(null, obj);
 });
-// logging, parsing, and session handling.
-// app.use(require('morgan')('combined'));
+// parsing, and session handling.
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(session({
     secret: secrets.session.secret,
@@ -90,9 +93,6 @@ app.get('/auth/twitter/callback',
         res.redirect('/add-');
     });
 app.use('/api-/', users);
-/*
-app.use('/public-/', express.static(path.resolve(__dirname,'../public-/')));
-*/
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.post('/upload-/audio', audioUploader.handleUpload);
 app.use('*',function(req,res) {
