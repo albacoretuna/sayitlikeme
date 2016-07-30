@@ -10,6 +10,7 @@ import Homepage from './components/Homepage.jsx';
 import Search from './components/Search.jsx';
 import Login from './components/Login.jsx';
 import About from './components/About.jsx';
+import RemoveAccount from './components/RemoveAccount.jsx';
 import Footer from './components/Footer.jsx';
 
 
@@ -28,6 +29,7 @@ const App = React.createClass({
                                 <Route path="add-" component={AddUser}/>
                                 <Route path="login-" component={Login}/>
                                 <Route path="about-" component={About}/>
+                                <Route path="remove-account-" component={RemoveAccount}/>
                                 <Route path=":username" component={Profile}/>
                             </Route>
                         </Router>

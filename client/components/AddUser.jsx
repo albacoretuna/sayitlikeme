@@ -25,8 +25,8 @@ const AddUser = React.createClass({
     render() {
         return (
             <div>
-                <h1> Register </h1>
-                <h4> To help them pronounce the name with grace! </h4>
+                <h1> Profile </h1>
+                <h4> Record your name to help people pronounce it more easily! </h4>
 
                 {this.state.userInfo ? <AddUserForm currentUser={this.state.userInfo}/> : <Login/>}
 

@@ -16,30 +16,35 @@ const Navigation = React.createClass({
                         </Link>
                     </li>
                     <li className="navigation-menue-item">
-                        <Link to="/add-"
-                            className="navigation-menue-link"
-                            activeClassName="navigation-menue-active">
-                            Register
-                        </Link>
-                    </li>
-                    <li className="navigation-menue-item">
                         <Link to="/about-"
                             className="navigation-menue-link"
                             activeClassName="navigation-menue-active">
                             About
                         </Link>
                     </li>
-                    {this.props.isLoggedIn ? <UserPanelMenue/> : null}
+                    <div className="navigation-menue-panel">
+                        <li className="navigation-menue-item">
+                            <Link to="/add-"
+                                className="navigation-menue-link"
+                                activeClassName="navigation-menue-active">
+                                {this.props.isLoggedIn ?'Profile' : 'Register'}
+                            </Link>
+                        </li>
+                        {this.props.isLoggedIn ? <LogoutButton/> : null}
+                    </div>
                 </ul>
             </div>
         );
     }
 });
-const UserPanelMenue = () => <div className="navigation-menue-panel">
+const LogoutButton = () => <span>
+    <li className="navigation-menue-item">
+        <Link className="navigation-menue-link" to="remove-account-"> &nbsp; Remove Account </Link>
+    </li>
     <li className="navigation-menue-item">
         <a href="/logout-" className="navigation-menue-link">
             Logout
         </a>
     </li>
-</div>;
+</span>;
 export default Navigation;

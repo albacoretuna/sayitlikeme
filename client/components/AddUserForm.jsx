@@ -48,11 +48,11 @@ const AddUserForm = React.createClass({
         return (
             <div>
                 <h5>
-                    For Twitter handle: &nbsp;
+                    Your Twitter handle: &nbsp;
                             @{this.props.currentUser}
                     <a href="/logout-"> (Change User) </a>
                 </h5>
-                <h6>Follow these 3 steps</h6>
+                <h6>Follow steps 1 to 3, you need a microphone for this!</h6>
                 <div className="row">
                     <div
                         className={'register-step '+ (this.state.formSubmittedSuccess || this.props.currentUser.name ? ' register-step-is-done ' : '')}>

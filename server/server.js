@@ -89,8 +89,7 @@ app.use(passport.session());
 app.get('/auth/twitter/callback',
     passport.authenticate('twitter', { failureRedirect: '/login-' }),
     function(req, res) {
-        // Successful authentication, redirect home.
-        // console.log('request.session.passport.user in successredirect looks like', req.session.passport.user);
+        // Successful authentication, redirect to registration form.
         res.redirect('/add-');
     });
 app.get('/logout-', function(req, res){

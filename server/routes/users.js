@@ -41,6 +41,21 @@ router.route('/update').post(function(req, res) {
             return res.sendStatus(200);
         });
 });
+router.route('/remove-user').get(function(req, res) {
+    const currentUser = getCurrentUser(req);
+    if(!currentUser) {
+        return res.redirect('/');
+    }
+    User.remove({twitterId:req.user}, function(err) {
+        if (err) {
+            res.sendStatus(500);
+        }
+        else {
+            req.logout();
+            return res.redirect('/');
+        }
+    });
+});
 router.route('/:twitterhandle').get(function(req, res) {
     User.find({twitterId:req.params.twitterhandle}, function(err, users) {
         if (err) {
