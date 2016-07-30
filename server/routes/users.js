@@ -9,9 +9,9 @@ const logger = require('../logger.js');
 router.route('/current-user').get(function(req, res) {
     // check if authenticated
     if(req.session.passport && req.session.passport.user) {
-        logger.log('user in /current-user session', req.session.passport.user);
+        logger.log('info', 'user in /current-user session', req.session.passport.user);
         // get twitter id from passport.user in session, and look it up in Mongo
-        User.find({twitterId:req.session.passport.user.twitterId}, function(err, user) {
+        User.find({_id:req.session.passport.user}, function(err, user) {
             logger.log('info', 'user in /current-user after User.find database', typeof user[0]);
             logger.log('info', 'user in /current-user after User.find database', user[0].name);
             if (err) {

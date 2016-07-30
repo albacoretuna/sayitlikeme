@@ -62,13 +62,14 @@ passport.use(new TwitterStrategy({
 );
 
 
-passport.serializeUser(function(user, cb) {
-    winston.log('info', 'user serializsed as: ', {user: user});
-    cb(null, user);
+passport.serializeUser(function(user, done) {
+    logger.log('info', 'user id serializsed as: ', {id: user.id});
+    done(null, user.id);
 });
 
-passport.deserializeUser(function(obj, cb) {
-    cb(null, obj);
+passport.deserializeUser(function(obj, done) {
+    logger.log('info', 'user deserializsed as: ', {user: obj});
+    done(null, obj);
 });
 // parsing, and session handling.
 app.use(require('body-parser').urlencoded({ extended: true }));
