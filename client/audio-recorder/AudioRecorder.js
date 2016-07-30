@@ -309,7 +309,7 @@ AudioRecorder.defaultProps = {
 const AudioRecordingNotSupported = (props) => <div className={(props.isVisible ? '' : 'is-hidden')}>
     <h1> Oh sorry! something's wrong with audio recording </h1>
     <h3>Please try registering using latest
-        Chrome or Firefox browsers on a desktop, laptop, or android any android phone or tablet </h3>
+        Chrome or Firefox browsers on a desktop, laptop, or any Android phone or tablet </h3>
 </div>;
 AudioRecordingNotSupported.propTypes = {
     isVisible: PropTypes.bool

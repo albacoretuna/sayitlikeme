@@ -36,9 +36,6 @@ body, html {
     color: #009688;
     font-size: 30px;
 }
-.navigation-menue {
-    display: flex;
-}
 .navigation-menue > li {
     display: inline-block;
 }

@@ -12,7 +12,7 @@ const Navigation = React.createClass({
                         <Link to="/home-"
                             className="navigation-menue-link"
                             activeClassName="navigation-menue-active">
-                            Homepage
+                            Home
                         </Link>
                     </li>
                     <li className="navigation-menue-item">
@@ -22,7 +22,7 @@ const Navigation = React.createClass({
                             About
                         </Link>
                     </li>
-                    <div className="navigation-menue-panel">
+                    <span className="navigation-menue-panel">
                         <li className="navigation-menue-item">
                             <Link to="/add-"
                                 className="navigation-menue-link"
@@ -31,7 +31,7 @@ const Navigation = React.createClass({
                             </Link>
                         </li>
                         {this.props.isLoggedIn ? <LogoutButton/> : null}
-                    </div>
+                    </span>
                 </ul>
             </div>
         );
@@ -39,7 +39,7 @@ const Navigation = React.createClass({
 });
 const LogoutButton = () => <span>
     <li className="navigation-menue-item">
-        <Link className="navigation-menue-link" to="remove-account-"> &nbsp; Remove Account </Link>
+        <Link className="navigation-menue-link" to="remove-account-">  Remove </Link>
     </li>
     <li className="navigation-menue-item">
         <a href="/logout-" className="navigation-menue-link">
