@@ -1,9 +1,11 @@
 import React from 'react';
 import Search from './Search.jsx';
+import { Link } from 'react-router';
 const Homepage = () => <div>
-    <h1> Home page </h1>
-    <h5> Sayitlike.me is a free service to record the pronounciation of names of people or products, to help others pronounce it like the owners of those names </h5>
-    <p>Check some recorded names below, or go ahead and record a name! </p>
+    <h1> Say It Like Me! </h1>
+    <h4> A <strong>free</strong> service to record the pronounciation of your name, to help others pronounce it right!</h4>
+    <Link to='add-' className="button button-primary"> Register </Link>
+    <h4>Record Your name now!  </h4>
     <Search  hideTitle={true}/>
 </div>;
 export default Homepage;
