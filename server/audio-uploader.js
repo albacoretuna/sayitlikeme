@@ -11,15 +11,14 @@ const audio = require('./utils/audio.js');
  * @returns {string} the authenticated user's twitter handle  or {undefined}
  */
 function getCurrentUser(req) {
-    if(req.session && req.session.passport && req.session.passport.user && typeof req.session.passport.user.twitterId === 'string') {
+    if(req.session && req.session.passport && req.session.passport.user && typeof req.session.passport.user === 'string') {
         //console.log('user in getcurrentuser', req.session.passport.user);
-        return req.session.passport.user.twitterId;
+        return req.session.passport.user;
     }
     return undefined;
 }
 function handleUpload(req, res){
     // user is not authenticated, send permission error
-    //console.log(getCurrentUser(req));
     if(!getCurrentUser(req)) {
         return res.sendStatus(403);
     }

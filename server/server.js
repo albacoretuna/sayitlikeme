@@ -63,8 +63,8 @@ passport.use(new TwitterStrategy({
 
 
 passport.serializeUser(function(user, done) {
-    logger.log('info', 'user id serializsed as: ', {id: user.id});
-    done(null, user.id);
+    logger.log('info', 'user id serializsed as: ', {id: user.twitterId});
+    done(null, user.twitterId);
 });
 
 passport.deserializeUser(function(obj, done) {

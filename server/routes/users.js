@@ -7,24 +7,12 @@ const router = express.Router();
 const logger = require('../logger.js');
 
 router.route('/current-user').get(function(req, res) {
+    logger.log('info', 'user in /current-user session', req.session.passport.user);
     // check if authenticated
-    if(req.session.passport && req.session.passport.user) {
+    if(req.session.passport && req.session.passport.user && typeof req.session.passport.user === 'string') {
         logger.log('info', 'user in /current-user session', req.session.passport.user);
         // get twitter id from passport.user in session, and look it up in Mongo
-        User.find({_id:req.session.passport.user}, function(err, user) {
-            logger.log('info', 'user in /current-user after User.find database', typeof user[0]);
-            logger.log('info', 'user in /current-user after User.find database', user[0].name);
-            if (err) {
-                return res.sendStatus(500);
-            }
-            var decoratedUser = {
-                twitterId: user[0].twitterId,
-                name: user[0].name,
-                nameClarification: user[0].nameClarification,
-                notes: user[0].notes
-            };
-            res.json({ 'status' : { 'success' : {'currentUser': decoratedUser} } });
-        });
+        res.json({ 'status' : { 'success' : {'currentUser': req.session.passport.user} } });
     } else {
         res.json({ 'status' : { 'fail' : {'message': 'No user authenticated'} } });
     }

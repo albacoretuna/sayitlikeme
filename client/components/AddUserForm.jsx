@@ -9,7 +9,7 @@ const AddUserForm = React.createClass({
         };
     },
     propTypes: {
-        currentUser: React.PropTypes.object
+        currentUser: React.PropTypes.string
     },
     handleNameChange(event) {
         this.setState({name: event.target.value});
@@ -36,7 +36,7 @@ const AddUserForm = React.createClass({
             formSubmittedSuccess: true
         });
         const data =  {
-            twitterId: this.props.currentUser.twitterId,
+            twitterId: this.props.currentUser,
             name: this.state.name,
             nameClarification: this.state.nameClarification,
             notes: this.state.notes
@@ -49,8 +49,8 @@ const AddUserForm = React.createClass({
             <div>
                 <h5>
                     For Twitter handle: &nbsp;
-                    <a href={`https://twitter.com/${this.props.currentUser.twitterId}`}>
-                        @{this.props.currentUser.twitterId}
+                    <a href={`https://twitter.com/${this.props.currentUser}`}>
+                        @{this.props.currentUser}
                     </a>
                 </h5>
                 <h6>Follow these 3 steps</h6>
@@ -65,7 +65,6 @@ const AddUserForm = React.createClass({
                                     <input name="name"
                                         type="text"
                                         onChange={this.handleNameChange}
-                                        defaultValue={this.props.currentUser.name}
                                         required/>
                                 </div>
                                 <div className="six columns">
@@ -76,7 +75,6 @@ const AddUserForm = React.createClass({
                                         name="name-clarification"
                                         type="text"
                                         onChange={this.handleNameClarificationChange}
-                                        defaultValue={this.props.currentUser.nameClarification}
                                         placeholder="e.g. rhymes with Sun"/>
                                 </div>
                                 <label htmlFor="notes">Notes (Optional)</label>
@@ -84,7 +82,6 @@ const AddUserForm = React.createClass({
                                     name="notes"
                                     className="u-full-width"
                                     onChange={this.handleNotesChange}
-                                    value={this.props.currentUser.notes}
                                     placeholder="e.g I prefer my friends to use my first name. Or my aunt Jane chose this name for me">
                                 </textarea>
                             </div>
@@ -94,7 +91,7 @@ const AddUserForm = React.createClass({
                         </form>
                         <FormSuccessMessage shouldHide={!this.state.formSubmittedSuccess}/>
                     </div>
-                    <AudioRecorder twitterId={this.props.currentUser.twitterId}/>
+                    <AudioRecorder twitterId={this.props.currentUser}/>
                 </div>
             </div>
         );

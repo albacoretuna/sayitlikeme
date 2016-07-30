@@ -7,9 +7,7 @@ const apiUrl = '';
 const AddUser = React.createClass({
     getInitialState() {
         return {
-            userInfo : {
-                twitterId: ''
-            }
+            userInfo : ''
         };
     },
     componentDidMount() {
@@ -30,7 +28,7 @@ const AddUser = React.createClass({
                 <h1> Register </h1>
                 <h4> To help them pronounce the name with grace! </h4>
 
-                {this.state.userInfo.twitterId ? <AddUserForm currentUser={this.state.userInfo}/> : <Login/>}
+                {this.state.userInfo ? <AddUserForm currentUser={this.state.userInfo}/> : <Login/>}
 
             </div>);
     }
