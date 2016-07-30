@@ -9,6 +9,10 @@ module.exports = {
     },
     'session' : {
         'secret': ''
+    },
+    'db' : {
+        'dbName' : '',
+        'ongoHost': ''
     }
 
 };

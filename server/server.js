@@ -21,8 +21,8 @@ const audioUploader = require('./audio-uploader.js');
 //Create the Express app
 const app = express();
 
-const dbName = 'usersDb';
-const connectionString = 'mongodb://localhost:27017/' + dbName;
+const dbName = secrets.db.dbName;
+const connectionString = secrets.db.mongoHost + dbName;
 
 
 mongoose.connect(connectionString);
