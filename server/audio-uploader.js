@@ -1,22 +1,10 @@
 /* eslint-env node */
 const fs = require('fs');
 const path = require('path');
+const getCurrentUser = require('./auth/auth.js').getCurrentUser;
 
 // module to convert wav to mp3, and ogg
 const audio = require('./utils/audio.js');
-/**
- * getCurrentUser
- *
- * @param req
- * @returns {string} the authenticated user's twitter handle  or {undefined}
- */
-function getCurrentUser(req) {
-    if(req.session && req.session.passport && req.session.passport.user && typeof req.session.passport.user === 'string') {
-        //console.log('user in getcurrentuser', req.session.passport.user);
-        return req.session.passport.user;
-    }
-    return undefined;
-}
 function handleUpload(req, res){
     // user is not authenticated, send permission error
     if(!getCurrentUser(req)) {

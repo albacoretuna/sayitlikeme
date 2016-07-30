@@ -93,6 +93,10 @@ app.get('/auth/twitter/callback',
         // console.log('request.session.passport.user in successredirect looks like', req.session.passport.user);
         res.redirect('/add-');
     });
+app.get('/logout-', function(req, res){
+    req.logout();
+    res.redirect('/login-');
+});
 app.use('/api-/', users);
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.post('/upload-/audio', audioUploader.handleUpload);
