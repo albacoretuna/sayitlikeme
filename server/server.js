@@ -82,10 +82,8 @@ let sessionOptions = {
     cookie: {maxAge: 1000 * 60 * 20}
 };
 if (app.get('env') === 'production') {
-    app.set('trust proxy', 1); // trust first proxy
-    sessionOptions.cookie.secure = true; // serve secure cookies
-    sessionOptions.cookie.domain = '.sayitlike.me'; // serve secure cookies
-
+	sessionOptions.name = 'saySessionId';
+	sessionOptions.cookie.domain = 'sayitlike.me'; 
 }
 
 app.use(session(sessionOptions));
