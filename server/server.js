@@ -73,12 +73,25 @@ passport.deserializeUser(function(obj, done) {
 });
 // parsing, and session handling.
 app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(session({
+
+let sessionOptions = {
     secret: secrets.session.secret,
     store: new MongoStore({mongooseConnection: mongoose.connection}),
-    resave: true,
-    saveUninitialized: true
-}));
+    resave: false,
+    saveUninitialized: true,
+    cookie: {maxAge: 1000 * 60 * 20}
+};
+if (app.get('env') === 'production') {
+    app.set('trust proxy', 1); // trust first proxy
+    sessionOptions.cookie.secure = true; // serve secure cookies
+    sessionOptions.cookie.domain = '.sayitlike.me'; // serve secure cookies
+
+}
+
+app.use(session(sessionOptions));
+
+
+
 
 // Initialize Passport and restore authentication state, if any, from the
 // session.
