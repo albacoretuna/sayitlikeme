@@ -81,9 +81,15 @@ let sessionOptions = {
     saveUninitialized: true,
     cookie: {maxAge: 1000 * 60 * 20}
 };
+
+// in production enable secure cookie and set domain, also nginx needs 
+// proxy_set_header X-Forwarded-Proto $scheme;
 if (app.get('env') === 'production') {
 	sessionOptions.name = 'saySessionId';
+	sessionOptions.proxy = true;
+	app.set('trust proxy', 'loopback'); 
 	sessionOptions.cookie.domain = 'sayitlike.me'; 
+	sessionOptions.cookie.secure = true; 
 }
 
 app.use(session(sessionOptions));
