@@ -109,7 +109,9 @@ app.get('/auth/twitter/callback',
     function(req, res) {
         // Successful authentication, redirect to registration form.
         res.redirect('/add-');
-    });
+    }
+);
+
 app.get('/logout-', function(req, res){
     req.logout();
     res.redirect('/login-');
