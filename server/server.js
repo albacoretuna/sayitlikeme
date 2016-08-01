@@ -11,6 +11,8 @@ const User = require('./models/user');
 const users = require('./routes/users');
 
 const logger = require('./logger.js');
+const morgan = require('morgan');
+
 // twitter authentication with passport
 
 const passport = require('passport');
@@ -36,31 +38,40 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ limit: '50mb',parameterLimit:50000, extended: true }));
 
 passport.use(new TwitterStrategy({
-    consumerKey: secrets.twitterAuth.consumerKey,
-    consumerSecret: secrets.twitterAuth.consumerSecret,
-    callbackURL: secrets.twitterAuth.callbackURL
+consumerKey: secrets.twitterAuth.consumerKey,
+consumerSecret: secrets.twitterAuth.consumerSecret,
+callbackURL: secrets.twitterAuth.callbackURL
 },
-function(token, tokenSecret, profile, cb) {
-    User.findOne({ twitterId: profile.username }, function (err, user) {
-        if(err) {
-            logger.log('error', 'Twitter strategy problem', {err: err});
-        }
+function(token, tokenSecret, profile, done) {
+    if(typeof profile.username === 'string') {
+        profile.username = profile.username.toLowerCase();
+    }
+logger.log('info', 'profile from twitter arrived', {profile: profile});
+    var searchQuery = {
+      twitterId: profile.username
+    };
+
+    var updates = {
+      name: profile.displayName
+    };
+
+    var options = {
+      upsert: true,
+      new: true
+    };
+
+    // update the user if s/he exists or add a new user
+    User.findOneAndUpdate(searchQuery, updates, options, function(err, user) {
+      if(err) {
+        return done(err);
+      } else {
         if(user) {
-            return cb(err, user);
-        } else {
-            let newUser = new User({ twitterId: profile.username });
-            newUser.save(function(err){
-                if(err) {
-                    logger.log('error', 'new user not saved', {err: err});
-                    return err;
-                } else {
-                    return cb(err, newUser);
-                }
-            });
+        return done(null, user);
         }
+      }
     });
-})
-);
+  }
+));
 
 
 passport.serializeUser(function(user, done) {
@@ -74,7 +85,7 @@ passport.deserializeUser(function(obj, done) {
 });
 // parsing, and session handling.
 app.use(require('body-parser').urlencoded({ extended: true }));
-
+app.use(require('morgan')('dev'));
 let sessionOptions = {
     secret: secrets.session.secret,
     store: new MongoStore({mongooseConnection: mongoose.connection}),
@@ -104,9 +115,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //This is our route middleware
+app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback',
     passport.authenticate('twitter', { failureRedirect: '/login-' }),
     function(req, res) {
+        logger.info('info', 'In success func callback');
         // Successful authentication, redirect to registration form.
         res.redirect('/add-');
     }
@@ -117,10 +130,30 @@ app.get('/logout-', function(req, res){
     res.redirect('/login-');
 });
 app.use('/api-/', users);
-app.get('/auth/twitter', passport.authenticate('twitter'));
 app.post('/upload-/audio', audioUploader.handleUpload);
 app.use('*',function(req,res) {
     res.sendFile('index.html', {root: path.resolve(__dirname,'../public-/')});
+});
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    logger.log('error', 'Following happened',{
+      message: err.message,
+      error: err
+    });
+  });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+    logger.log('error', 'Following happened',{
+      message: err.message,
+      error: err
+  });
 });
 
 module.exports = app;
