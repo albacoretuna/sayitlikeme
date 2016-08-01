@@ -236,7 +236,7 @@ class AudioRecorder extends Component {
             <div className={'audio-recorder' + (this.state.audioRecordingIsSupported ? '' : ' is-hidden ')}>
                 <div className={'register-step ' + (this.state.audio ? 'register-step-is-done ' : '')}>
                     <h2> 2. Record it </h2>
-                    <div>Press the button when you're ready! (should work on Chrome and Firefox on laptops)</div>
+                    <div>Press ● Record when you're ready, and then pronounce your name clearly </div>
                 <button
                     className={buttonClass.join(' ')}
                     onClick={clickHandler && clickHandler.bind(this)}

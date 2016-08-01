@@ -82,14 +82,21 @@ body, html {
 .search-container {
     background: rgba(0, 188, 212, 0.15);
     max-height: 500px;
+    max-height: 15vh;
     overflow-y: auto;
 }
 .search-container-link {
     color: #2d1e1e;
     text-decoration: none;
+    width: 100%;
+    display: inline-block;
 }
 .search-container-list {
     list-style: none;
+    padding: 10px;
+}
+.search-container-list > li {
+    border-bottom: 1px solid rgba(216, 211, 211, 0.3);
 }
 
 /* Audio Player */
