@@ -31,7 +31,9 @@ const SearchBox = React.createClass({
         let twitterHandles = this.state.twitterHandles;
         let searchTerm = this.state.searchTerm.trim().toLowerCase();
         if(searchTerm.length > 1 ) {
-            twitterHandles = twitterHandles.filter((handle) => handle.toLowerCase().match(searchTerm));
+            twitterHandles = twitterHandles.filter((handle) => {
+                handle = handle || '@';
+                return handle.toLowerCase().match(searchTerm); });
         }
         return (
             <div>
