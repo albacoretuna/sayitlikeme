@@ -4,7 +4,7 @@ const path = require('path');
 const getCurrentUser = require('./auth/auth.js').getCurrentUser;
 
 // module to convert wav to mp3, and ogg
-const audio = require('./utils/audio.js');
+const audioConvertor = require('./utils/audio-convertor.js');
 function handleUpload(req, res){
     // user is not authenticated, send permission error
     if(!getCurrentUser(req)) {
@@ -19,7 +19,7 @@ function handleUpload(req, res){
             return res.sendStatus(500);
         } else {
             // convert the uploaded wave file to mp3 and ogg
-            audio.convertToAll(fileName);
+            audioConvertor.convertToAll(fileName);
             return res.sendStatus(200);
         }});
 }
