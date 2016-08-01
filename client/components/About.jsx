@@ -1,17 +1,21 @@
 import React from 'react';
 const About = () => <div>
     <h1>Why this?</h1>
-    <h4> 1. Uncommon Names </h4>
+    <h4> 1. Living With an Uncommon Name </h4>
     <p>
-    If you're John Smith, you won't go through much trouble when introducing yourself. I'm not a John, neither a Smith, and and i've been spelling it for people since I was 7, for my teachers, other kids, my coworkers, random people...
-</p>
-    <h4>2. Loving Podcasts</h4>
-    <p> I like listenning to podcasts. One of my favorites is <a href="https://changelog.com/" target="_blank"> The Change Log</a>. At each Change Log episode, names of some people and products are broght up, and very often pronouncing them takes some seconds of struggling for the hosts of the show Adam and Jerod. So I thought maybe we can help them, and myself to ease the pain of pronouncing names a bit.
+        Usually people don't get my family name in first few tries as it's not a common one. Even though I have learnt to not worry about that too much, still I feel bad when I see someone struggling to pronounce my name.
     </p>
-    <h4> Solution </h4>
-    <p> The idea is simply asking people to login by twitter and <strong>record the pronounciation of their name.</strong>Afterwards others can find the recording, by looking for the twitter handles.</p>
-    <p> Sayitlike.me is made availble for free and as an opensource project during my commutes and free time. </p>
-    <p>Feel free to check it out on Github and contribute: <a href="https://github.com/omidfi/sayitlikeme">Link</a> You can also find me on twitter <a href="https://twitter.com/omidfi">@omidfi</a></p>
+    <h4>2. Listenning to Lots of Podcasts</h4>
+    <p> I like listenning to podcasts. One of my favorites is <a href="https://changelog.com/" target="_blank"> The Change Log</a>. It's very common to hear the hosts of The Changelog,  Adam and Jerod,  guessing,  pronouncing, and then apologizing for mispronounciation of the names. But one time I actually heard them struggling with myown family name. It was then that I really hoped I could do something about it.
+    </p>
+    <h4>3. Idea  </h4>
+    <p> The idea is simply asking people to login by twitter and <strong>record the pronounciation of their names. </strong>So that others can find the recordings and listen to the right pronounciation to get the name more easily. </p>
+    <h4>4. Implementation </h4>
+    <p>Being mere mortals, we don't alwasy get the chance to bring our ideas to life. But this time I was lucky and during my commutes and summer vacation it was possible to make a betha version of Sayitlike.me </p>
+    <p>It's <strong>free</strong> and <strong>open source</strong> hoping that others will help to improve it. All the code is on github: <a href="https://github.com/omidfi/sayitlikeme">Link</a> </p>
+    <p> Feel free to say hi on twitter: <a href="https://twitter.com/omidfi">@omidfi</a></p>
+
+    <h4>The goal is to get to the point that If you know someone's twitter handle, you can find out how that person's name is pronounced.</h4>
 </div>;
 
 export default About;
