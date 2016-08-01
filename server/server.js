@@ -75,12 +75,12 @@ logger.log('info', 'profile from twitter arrived', {profile: profile});
 
 
 passport.serializeUser(function(user, done) {
-    logger.log('info', 'user id serializsed as: ', {id: user.twitterId});
+    // logger.log('info', 'user id serializsed as: ', {id: user.twitterId});
     done(null, user.twitterId);
 });
 
 passport.deserializeUser(function(obj, done) {
-    logger.log('info', 'user deserializsed as: ', {user: obj});
+    // logger.log('info', 'user deserializsed as: ', {user: obj});
     done(null, obj);
 });
 // parsing, and session handling.
@@ -94,14 +94,14 @@ let sessionOptions = {
     cookie: {maxAge: 1000 * 60 * 20}
 };
 
-// in production enable secure cookie and set domain, also nginx needs 
+// in production enable secure cookie and set domain, also nginx needs
 // proxy_set_header X-Forwarded-Proto $scheme;
 if (app.get('env') === 'production') {
-	sessionOptions.name = 'saySessionId';
-	sessionOptions.proxy = true;
-	app.set('trust proxy', 'loopback'); 
-	sessionOptions.cookie.domain = 'sayitlike.me'; 
-	sessionOptions.cookie.secure = true; 
+    sessionOptions.name = 'saySessionId';
+    sessionOptions.proxy = true;
+    app.set('trust proxy', 'loopback');
+    sessionOptions.cookie.domain = 'sayitlike.me';
+    sessionOptions.cookie.secure = true;
 }
 
 app.use(session(sessionOptions));
