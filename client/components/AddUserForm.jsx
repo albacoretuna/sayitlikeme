@@ -69,7 +69,7 @@ const AddUserForm = React.createClass({
                                 </div>
                                 <div className="six columns">
                                     <label htmlFor="name-clarification">
-                                        Pronounciation hint? (Optional)
+                                        Pronunciation hint? (Optional)
                                     </label>
                                     <input
                                         name="name-clarification"
