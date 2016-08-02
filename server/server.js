@@ -17,8 +17,7 @@ const morgan = require('morgan');
 // twitter authentication with passport
 const passport = require('passport');
 const TwitterStrategy  = require('passport-twitter').Strategy;
-const secrets = require('./config/secret.js');
-
+const secrets = require('./config/secrets.js');
 const audioUploader = require('./audio-uploader.js');
 
 //Create the Express app

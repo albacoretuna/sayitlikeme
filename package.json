@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "echo \"Running nodejs server...\" &&  nodemon --watch server ./server/bin/www.js",
-    "start": "webpack -w",
+    "dev": "webpack -w",
+    "start": "npm-run-all --parallel server dev",
     "build": "NODE_ENV=production webpack -p --config webpack.production.config.js",
     "server:production": "NODE_ENV=production pm2 start server/bin/www.js"
   },
@@ -31,6 +32,7 @@
     "eslint-plugin-react": "^5.2.2",
     "express": "^4.14.0",
     "mongoose": "^4.5.1",
+    "npm-run-all": "^2.3.0",
     "react-dom": "^15.1.0",
     "react-router": "^2.5.2",
     "webpack": "^1.13.1",

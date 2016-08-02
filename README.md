@@ -1,5 +1,7 @@
 <img src="https://i.imgur.com/8YhEyty.png" width="160">
-# sayitlike.me
+
+sayitlike.me
+===
 Is a free and open source service to help us with pronouncing each other's names. Pleas see it live at: https://SayItLike.Me
 
 Users can login with their twitter account, record their name, and they'll get a personal page
@@ -14,6 +16,7 @@ For example in these areas:
   * Code review
   * Suggestions for improving the idea
   * Improving the design
+
 # Contributing
 
   **Requirements**
@@ -21,21 +24,21 @@ For example in these areas:
   * Nodejs
   * nginx
 
-**Install**
-  
-`git clone git@github.com:omidfi/sayitlikeme.git`
+# Installation
 
-`cd sayitlikeme`
+```bash
+$ git clone git@github.com:omidfi/sayitlikeme.git
+$ cd sayitlikeme
+$ npm install
+```
 
-`npm install`
+Make a copy of `server/config/secrets.default.js` and rename it to `secrets.js` in the same folder.
 
-Make a copy of secrets.default.js and rename it t secrets.js in the same folder
+Then run:
 
-In seperate terminals run
-
-`npm run server`
-
-`npm start`
+```bash
+$ npm start # Shortcut to npm run dev and npm run server
+```
 
 Now you need a web server to serve static files located at public- folder. It should be setup
 to proxy other requests to the nodejs you have already started at http://127.0.0.1:8000

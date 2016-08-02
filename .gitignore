@@ -2,7 +2,7 @@ node_modules
 *.swp
 bundle.js
 npm-debug.log
-server/config/secret.js
+server/config/secrets.js
 public-/bundle.js
 public-/bundle.js.map
 public-/audio-upload/
