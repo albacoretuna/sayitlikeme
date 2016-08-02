@@ -21,15 +21,20 @@ For example in these areas:
   * Nodejs
   * nginx
 
-  **Install**
+**Install**
+  
 `git clone git@github.com:omidfi/sayitlikeme.git`
+
 `cd sayitlikeme`
+
 `npm install`
 
 Make a copy of secrets.default.js and rename it t secrets.js in the same folder
 
 In seperate terminals run
+
 `npm run server`
+
 `npm start`
 
 Now you need a web server to serve static files located at public- folder. It should be setup
