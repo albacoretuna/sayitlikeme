@@ -159,6 +159,9 @@ class AudioRecorder extends Component {
         }
     }
     uploadAudio() {
+        if(!this.state.audio) {
+            return;
+        }
         var blobToBase64 = function(blob, cb) {
             var reader = new FileReader();
             reader.onload = function() {
@@ -232,10 +235,16 @@ class AudioRecorder extends Component {
 
         return (
             <div>
+                <h5>
+                    Your Twitter handle: &nbsp;
+                            @{this.props.twitterId}
+                    <a href="/logout-"> (Change User) </a>
+                </h5>
+                <h6>Follow steps 1 and 2, your device needs to have a microphone</h6>
             <AudioRecordingNotSupported isVisible={!this.state.audioRecordingIsSupported}/>
             <div className={'audio-recorder' + (this.state.audioRecordingIsSupported ? '' : ' is-hidden ')}>
                 <div className={'register-step ' + (this.state.audio ? 'register-step-is-done ' : '')}>
-                    <h2> 2. Record it </h2>
+                    <h2> 1. Record your name </h2>
                     <div>Press ● Record when you're ready, and then pronounce your name clearly </div>
                 <button
                     className={buttonClass.join(' ')}
@@ -244,15 +253,6 @@ class AudioRecorder extends Component {
                     {buttonText}
                 </button>
                 {audioButtons}
-                </div>
-                <div className={'register-step ' + (this.state.fileUploadSuccess ? 'register-step-is-done ' : '')}>
-                    <h2>3. Upload the recording </h2>
-                    <button key="upload"
-                        className={'audiorecorder-upload ' + (!this.state.audio ? 'button-is-disabled' : '')}
-                        onClick={this.uploadAudio.bind(this)}
-                        disabled={!this.state.audio}>
-                        {strings.upload}
-                    </button>
                 </div>
                 <div className={'profile-created-overlay ' + (!this.state.fileUploadSuccess ? 'is-hidden' : '')}>
                     <div className="container">

@@ -1,5 +1,4 @@
 import React from 'react';
-import AudioRecorder from '../audio-recorder/AudioRecorder.js';
 import axios from 'axios';
 const apiUrl = '';
 const AddUserForm = React.createClass({
@@ -8,11 +7,12 @@ const AddUserForm = React.createClass({
             isSubmitDisabled: false
         };
     },
-    propTypes: {
-        currentUser: React.PropTypes.string
-    },
     handleNameChange(event) {
         this.setState({name: event.target.value});
+    },
+    propTypes: {
+        currentUser: React.PropTypes.string,
+        onFromSubmit: React.PropTypes.func
     },
     handleNameClarificationChange(event) {
         this.setState({nameClarification: event.target.value});
@@ -31,6 +31,7 @@ const AddUserForm = React.createClass({
     },
     handleSubmit(event) {
         event.preventDefault();
+        this.props.onFromSubmit();
         this.setState({
             isSubmitDisabled: true,
             formSubmittedSuccess: true
@@ -47,16 +48,10 @@ const AddUserForm = React.createClass({
     render() {
         return (
             <div>
-                <h5>
-                    Your Twitter handle: &nbsp;
-                            @{this.props.currentUser}
-                    <a href="/logout-"> (Change User) </a>
-                </h5>
-                <h6>Follow steps 1 to 3, your device needs to have a microphone</h6>
                 <div className="row">
                     <div
                         className={'register-step '+ (this.state.formSubmittedSuccess || this.props.currentUser.name ? ' register-step-is-done ' : '')}>
-                        <h2> 1. Enter Your Name </h2>
+                        <h2> 2. Tell more about it </h2>
                         {/* TODO prefill the form values from database if any*/}
                         <form action="/api/update-" onSubmit={this.handleSubmit}>
                             <div className="row">
@@ -87,20 +82,13 @@ const AddUserForm = React.createClass({
                             </div>
                             <button
                                 type="submit"
+                                className="button-primary"
                                 disabled={this.state.isSubmitDisabled}> Save </button>
                         </form>
-                        <FormSuccessMessage shouldHide={!this.state.formSubmittedSuccess}/>
                     </div>
-                    <AudioRecorder twitterId={this.props.currentUser}/>
                 </div>
             </div>
         );
     }
 });
-const FormSuccessMessage = (props) => <div className={props.shouldHide ? 'is-hidden' : ''}>
-    Form Submitted Successfully! Now record the pronounciation!
-</div>;
-FormSuccessMessage.propTypes = {
-    shouldHide: React.PropTypes.bool
-};
 export default AddUserForm;
