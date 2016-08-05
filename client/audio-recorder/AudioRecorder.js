@@ -30,7 +30,7 @@ class AudioRecorder extends Component {
     componentWillUpdate(nextProp, nextState) {
 
         // max recording duration in seconds
-        const MAX_DURATION = 10;
+        const MAX_DURATION = 6;
         if(nextState.duration >= MAX_DURATION && nextState.recording === true) {
             this.stopRecording();
         }
