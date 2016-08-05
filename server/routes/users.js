@@ -65,7 +65,8 @@ router.route('/:twitterhandle').get(function(req, res) {
     });
 });
 router.route('/users/handles').get(function(req, res) {
-    User.find({}, function(err, users) {
+    // get all the users who has recorded their pronounciation
+    User.find({hasAudio: true}, function(err, users) {
         users = users || [];
         if (err) {
             return res.sendStatus(500);

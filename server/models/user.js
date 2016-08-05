@@ -5,6 +5,7 @@ const userSchema = new Schema({
     twitterId: { type: String, index: { unique: true }, lowercase: true, trim: true},
     name: String,
     nameClarification: String,
+    hasAudio: Boolean,
     notes: String,
     updated_at: Date
 });

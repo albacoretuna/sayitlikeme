@@ -5,7 +5,7 @@ const path = require('path');
 const child_process = require('child_process');
 const AUDIO_FOLDER = path.resolve(__dirname,'../../public-/audio-upload/');
 const logger = require('../logger.js');
-
+const User = require('../models/user');
 /**
  * audioConvertor
  *
@@ -16,6 +16,7 @@ const logger = require('../logger.js');
  * @param {string} extension
  */
 function audioConvertor(fileName, folder, codec, extension) {
+    let twitterId = fileName;
     let params = [
         '-i',
         `${folder}/${fileName}.wav`,
@@ -29,6 +30,12 @@ function audioConvertor(fileName, folder, codec, extension) {
     ffmpegExe.stderr.on('error', (data) => {
         logger.log('info', 'Audio file conversion faild', {error : data, file: fileName});
     });
+    ffmpegExe.on('close', (code) => {
+        logger.log('info',`ffmpeg exited with this exit code: ${code}`);
+        if(code === 0 ) {
+            setHasAudio(twitterId);
+        }
+    });
 }
 
 // call audioConvertor once per extension
@@ -40,3 +47,17 @@ function convertToAll(fileName) {
 module.exports = {
     convertToAll : convertToAll
 };
+
+function setHasAudio(twitterId) {
+
+    const query = {'twitterId':twitterId};
+    const update = {'hasAudio':true};
+    User.findOneAndUpdate(
+        query,
+        update,
+        function(err){
+            if (err) {
+                logger.log('error', 'Updating has audio failed', {twitterId: twitterId});
+            }
+        });
+}
