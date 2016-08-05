@@ -20,7 +20,8 @@ const Profile = React.createClass({
                 twitterId: response.twitterId,
                 name: response.name,
                 nameClarification: response.nameClarification,
-                notes: response.notes
+                notes: response.notes,
+                hasAudio: response.hasAudio
             }
         });
     },
