@@ -33,8 +33,8 @@ app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
-app.use(bodyParser.json({limit: '10mb'}));
-app.use(bodyParser.urlencoded({ limit: '10mb',parameterLimit:50000, extended: true }));
+app.use(bodyParser.json({limit: '20mb'}));
+app.use(bodyParser.urlencoded({ limit: '20mb',parameterLimit:50000, extended: true }));
 
 passport.use(new TwitterStrategy({
     consumerKey: secrets.twitterAuth.consumerKey,
