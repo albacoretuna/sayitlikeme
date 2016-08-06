@@ -80,9 +80,6 @@ body, html {
 
 /* search area */
 .search-container {
-    background: rgba(0, 188, 212, 0.15);
-    max-height: 500px;
-    max-height: 15vh;
     overflow-y: auto;
 }
 .search-container-link {
@@ -90,6 +87,7 @@ body, html {
     text-decoration: none;
     width: 100%;
     display: inline-block;
+    font-size: 2em;
 }
 .search-container-list {
     list-style: none;
@@ -110,17 +108,19 @@ body, html {
 .page-wrap {
   min-height: 100%;
   /* equal to footer height */
-  margin-bottom: -80px;
+  margin-bottom: -50px;
 }
 .page-wrap:after {
   content: "";
   display: block;
 }
 .site-footer, .page-wrap:after {
-  height: 80px;
+  height: 50px;
 }
 .site-footer {
-  background: rgba(0, 188, 212, 0.48);
+    display: flex;
+    align-items: center;
+    background: rgba(201, 209, 210, 0.29);
 }
 .footer-menue {
     list-style: none;
@@ -130,6 +130,10 @@ body, html {
     display: inline-block;
     padding: 10px;
     margin-top: 10px;
+}
+.logo {
+    width: 50px;
+    vertical-align: bottom;
 }
 .footer-menue > li > a {
     color: #2d1e1e;
