@@ -45,7 +45,7 @@ function(token, tokenSecret, profile, done) {
     if(typeof profile.username === 'string') {
         profile.username = profile.username.toLowerCase();
     }
-    logger.log('info', 'profile from twitter arrived', {profile: profile});
+    logger.log('info', 'profile from twitter arrived', {user: profile.username});
     var searchQuery = {
         twitterId: profile.username
     };
@@ -120,8 +120,6 @@ app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback',
     passport.authenticate('twitter', { failureRedirect: '/login-' }),
     function(req, res) {
-        logger.info('info', 'In success func callback');
-        // Successful authentication, redirect to registration form.
         res.redirect('/add-');
     }
 );
