@@ -5,7 +5,7 @@ const UserDetails = (props) => {
     let userInfo = props.userInfo;
     return(<div>
         <h1>My name is  <b>{props.userInfo.name} </b></h1>
-        <label>twitter handle <b> <a href={`https://twitter.com/${twitterId}`}> @{twitterId}</a></b></label>
+        <label>Twitter handle <b> <a href={`https://twitter.com/${twitterId}`}> @{twitterId}</a></b></label>
         {userInfo.hasAudio ? <AudioPlayer filename={userInfo.twitterId}/> : <NoAudioRecorded />}
         {userInfo.nameClarification ? <PronounicationHint hint={userInfo.nameClarification}/> : null}
         {userInfo.notes ? <Notes notes={userInfo.notes}/> : null}
