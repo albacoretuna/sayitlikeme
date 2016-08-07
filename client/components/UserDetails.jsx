@@ -5,7 +5,7 @@ const UserDetails = (props) => {
     let userInfo = props.userInfo;
     return(<div>
         <h1>My name is  <b>{props.userInfo.name} </b></h1>
-        <h4>twitter handle <b> <a href={`https://twitter.com/${twitterId}`}> @{twitterId}</a></b></h4>
+        <label>twitter handle <b> <a href={`https://twitter.com/${twitterId}`}> @{twitterId}</a></b></label>
         {userInfo.hasAudio ? <AudioPlayer filename={userInfo.twitterId}/> : <NoAudioRecorded />}
         {userInfo.nameClarification ? <PronounicationHint hint={userInfo.nameClarification}/> : null}
         {userInfo.notes ? <Notes notes={userInfo.notes}/> : null}
@@ -22,8 +22,8 @@ UserDetails.propTypes = {
 export default UserDetails;
 
 const PronounicationHint = (props) =>
-    <div><h5>Pronunciation hint:</h5> {props.hint}</div>;
+    <div><label>Pronunciation hint:</label> {props.hint}</div>;
 const NoAudioRecorded = () =>
-    <div><h5>I haven't recorded the pronunciation yet, please come back later</h5></div>;
+    <div><label>I haven't recorded the pronunciation yet, please come back later</label></div>;
 const Notes = (props) =>
-    <div><h5>Notes: </h5>{props.notes}</div>;
+    <div><label>Notes: </label>{props.notes}</div>;
