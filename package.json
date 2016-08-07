@@ -15,7 +15,7 @@
     "check:retire": "echo \" looking for old npm packages\" && ./node_modules/.bin/retire || true",
     "check:nsp": "echo \" Looking for security problems\" && ./node_modules/.bin/nsp check",
     "check": "npm run check:nsp && npm run check:retire",
-    "server:production": "NODE_ENV=production pm2 start server/bin/www.js"
+    "server:production": "NODE_ENV=production pm2 start server/bin/www.js --name www --merge-logs --log-date-format=\"YYYY-MM-DD HH:mm Z\""
   },
   "repository": {
     "type": "git",
