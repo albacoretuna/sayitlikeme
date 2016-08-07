@@ -37,7 +37,7 @@ const SearchBox = React.createClass({
         }
         return (
             <div>
-                    <input className="u-full-width" type="text" placeholder="type here to search" onChange={this.handleSearchChange}/>
+                    <input className="u-full-width" type="text" placeholder="type here to filter by Twitter handle" onChange={this.handleSearchChange}/>
                 <div className="twelve columns search-container">
                     <ul className="search-container-list">
                         {twitterHandles.map((user) =>  {
@@ -45,7 +45,7 @@ const SearchBox = React.createClass({
                                 <li key={user}>
                                     <Link
                                         className="search-container-link"
-                                        to={`/${user}`}> @{user}
+                                        to={`/${user}`}> {user}
                                     </Link>
                                </li>
                             );

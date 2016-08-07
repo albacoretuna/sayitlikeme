@@ -13,9 +13,8 @@ Search.propTypes = {
 };
 export default Search;
 
-const HeadLine = () => <div>
-    <h1>Search:</h1>
-    <h4>Type in the box to search twitter handles of registered users </h4>
+const HeadLine = () => <div className="search-container-headline">
+    <h4>Or see it in action by clicking on any Twitter handle below:</h4>
 </div>;
 
 const UserNotFound = () => <div>

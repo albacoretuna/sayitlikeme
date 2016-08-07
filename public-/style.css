@@ -7,6 +7,9 @@ body, html {
     background: white;
     height: 100%;
 }
+p {
+    font-size: 1.2em;
+}
 .react-root-component,
 .react-goes-here
 {
@@ -81,6 +84,10 @@ body, html {
 /* search area */
 .search-container {
     overflow-y: auto;
+    max-height: 600px;
+}
+.search-container-headline {
+    margin-top: 30px;
 }
 .search-container-link {
     color: #2d1e1e;
