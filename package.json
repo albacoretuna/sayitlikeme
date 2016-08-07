@@ -12,7 +12,7 @@
     "deploy:client": "git pull && npm install && npm run build",
     "deploy:server": "git pull && npm install && pm2 restart www",
     "deploy": "npm run deploy:client && npm run deploy:server && npm run check",
-    "check:retire": "echo \" looking for old npm packages\" && ./node_modules/.bin/retire",
+    "check:retire": "echo \" looking for old npm packages\" && ./node_modules/.bin/retire || true",
     "check:nsp": "echo \" Looking for security problems\" && ./node_modules/.bin/nsp check",
     "check": "npm run check:nsp && npm run check:retire",
     "server:production": "NODE_ENV=production pm2 start server/bin/www.js"
