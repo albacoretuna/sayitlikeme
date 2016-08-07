@@ -7,6 +7,9 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
+// for security
+const helmet = require('helmet');
+
 //routes are defined here
 const User = require('./models/user');
 const users = require('./routes/users');
@@ -22,17 +25,14 @@ const audioUploader = require('./audio-uploader.js');
 
 //Create the Express app
 const app = express();
+app.use(helmet());
 
 const dbName = secrets.db.dbName;
 const connectionString = secrets.db.mongoHost + dbName;
 
 
 mongoose.connect(connectionString);
-app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-});
+
 app.use(bodyParser.json({limit: '20mb'}));
 app.use(bodyParser.urlencoded({ limit: '20mb',parameterLimit:50000, extended: true }));
 
