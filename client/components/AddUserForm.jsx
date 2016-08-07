@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-const apiUrl = '';
 const AddUserForm = React.createClass({
     getInitialState() {
         return {
@@ -42,7 +41,7 @@ const AddUserForm = React.createClass({
             nameClarification: this.state.nameClarification,
             notes: this.state.notes
         };
-        axios.post(`${apiUrl}/api-/update`, data)
+        axios.post('/api-/update', data)
             .then(this.confirmSubmission);
     },
     render() {

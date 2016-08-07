@@ -2,7 +2,6 @@ import React from 'react';
 import UserDetails from './UserDetails.jsx';
 import Search from './Search.jsx';
 import axios from 'axios';
-const apiUrl = '';
 const Profile = React.createClass({
     getInitialState() {
         return {
@@ -27,7 +26,7 @@ const Profile = React.createClass({
     },
     componentDidMount() {
         let userName = this.props.params.username;
-        axios.get(`${apiUrl}/api-/${userName}`)
+        axios.get(`/api-/${userName}`)
              .then( response => {
                  this.showUser(response.data[0]);
              });

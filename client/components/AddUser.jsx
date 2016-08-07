@@ -2,8 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Login from './Login.jsx';
 import AddUserForm from './AddUserForm.jsx';
-import AudioRecorder from '../audio-recorder/AudioRecorder.js';
-const apiUrl = '';
+import AudioRecorder from '../audio-recorder/AudioRecorder.jsx';
 
 const AddUser = React.createClass({
     getInitialState() {
@@ -15,7 +14,7 @@ const AddUser = React.createClass({
         currentUser: React.PropTypes.string
     },
     componentDidMount() {
-        axios.get(`${apiUrl}/api-/current-user`)
+        axios.get('/api-/current-user')
             .then( response => {
                 let status = response.data.status;
                 let currentUser;

@@ -2,7 +2,6 @@
 import React, { Component, PropTypes } from 'react';
 import encodeWAV from './wav-encoder.js';
 import axios from 'axios';
-const apiUrl = '';
 class AudioRecorder extends Component {
     constructor(props) {
         super(props);
@@ -174,7 +173,7 @@ class AudioRecorder extends Component {
         var _self = this;
         blobToBase64(this.state.audio, function(base64){ // encode
             var data = {'blob': base64};
-            axios.post(apiUrl + '/upload-/audio', data).then(_self.confirmUpload.bind(_self));
+            axios.post('/upload-/audio', data).then(_self.confirmUpload.bind(_self));
         });
     }
 

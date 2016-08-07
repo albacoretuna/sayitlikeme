@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import axios from 'axios';
-const apiUrl = '';
 
 const SearchBox = React.createClass({
     getInitialState() {
@@ -12,7 +11,7 @@ const SearchBox = React.createClass({
         };
     },
     componentDidMount() {
-        axios.get(`${apiUrl}/api-/users/handles`)
+        axios.get('/api-/users/handles')
             .then( response => {
                 let status = response.data.status;
                 let users;
