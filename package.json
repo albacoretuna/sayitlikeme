@@ -9,6 +9,12 @@
     "dev": "webpack -w",
     "start": "npm-run-all --parallel server dev",
     "build": "NODE_ENV=production webpack -p --config webpack.production.config.js",
+    "deploy:client": "git pull && npm install && npm run build",
+    "deploy:server": "git pull && npm install && pm2 restart www",
+    "deploy": "npm run deploy:client && npm run deploy:server && npm run check",
+    "check:retire": "echo \" looking for old npm packages\" && ./node_modules/.bin/retire",
+    "check:nsp": "echo \" Looking for security problems\" && ./node_modules/.bin/nsp check",
+    "check": "npm run check:nsp && npm run check:retire",
     "server:production": "NODE_ENV=production pm2 start server/bin/www.js"
   },
   "repository": {
@@ -33,8 +39,10 @@
     "express": "^4.14.0",
     "mongoose": "^4.5.1",
     "npm-run-all": "^2.3.0",
+    "nsp": "^2.6.1",
     "react-dom": "^15.1.0",
     "react-router": "^2.5.2",
+    "retire": "^1.1.5",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
     "webpack-livereload-plugin": "^0.8.1"
