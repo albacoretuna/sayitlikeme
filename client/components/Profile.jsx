@@ -6,7 +6,8 @@ const Profile = React.createClass({
     getInitialState() {
         return {
             userInfo : {
-                twitterId: ''
+                twitterId: 'Loading...',
+                name: 'Loading...'
             }
         };
     },
