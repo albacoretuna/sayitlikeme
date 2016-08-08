@@ -81,6 +81,10 @@ p {
     text-decoration: none;
 }
 
+.video-iframe {
+    width: 100%;
+}
+
 /* search area */
 .search-container {
     overflow-y: auto;

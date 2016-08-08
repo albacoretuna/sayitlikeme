@@ -2,6 +2,7 @@ import React from 'react';
 const About = () => <div>
     <h1>About</h1>
     <h4> The goal is to get to the point that If you know someone's Twitter handle, you can listen to the way that person pronounces his/her name.</h4>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Dd7FixvoKBw" frameBorder="0" allowFullScreen className="video-iframe"></iframe>
     <h1>Why this?</h1>
     <h4>1. Living with an uncommon name </h4>
     <p>
