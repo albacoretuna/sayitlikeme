@@ -1,6 +1,6 @@
 import React from 'react';
 import UserDetails from './UserDetails.jsx';
-import Search from './Search.jsx';
+import UrlNotFound from './UrlNotFound.jsx';
 import axios from 'axios';
 const Profile = React.createClass({
     getInitialState() {
@@ -12,6 +12,11 @@ const Profile = React.createClass({
     },
     showUser(response) {
         if(!response) {
+            this.setState({
+                userInfo : {
+                    twitterId: undefined
+                }
+            });
             return;
         }
         this.setState({
@@ -34,7 +39,7 @@ const Profile = React.createClass({
     render() {
         return (
             <div>
-              {this.state.userInfo.twitterId ? <UserDetails userInfo = {this.state.userInfo} /> : <Search userNotFound= {true} hideTitle={true}/>}
+              {this.state.userInfo.twitterId ? <UserDetails userInfo = {this.state.userInfo} /> : <UrlNotFound/>}
             </div>
             );
     }
