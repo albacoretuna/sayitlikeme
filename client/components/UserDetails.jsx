@@ -9,6 +9,7 @@ const UserDetails = (props) => {
         {userInfo.hasAudio ? <AudioPlayer filename={userInfo.twitterId}/> : <NoAudioRecorded />}
         {userInfo.nameClarification ? <PronounicationHint hint={userInfo.nameClarification}/> : null}
         {userInfo.notes ? <Notes notes={userInfo.notes}/> : null}
+        <PermanentLink twitterId={twitterId}/>
     </div>);
 };
 
@@ -27,3 +28,5 @@ const NoAudioRecorded = () =>
     <div><label>I haven't recorded the pronunciation yet, please come back later</label></div>;
 const Notes = (props) =>
     <div><label>Notes: </label>{props.notes}</div>;
+const PermanentLink = (props) =>
+    <div><label>Permanent link</label> <span><a href={`https://sayitlike.me/${props.twitterId}`}> https://sayitlike.me/{props.twitterId}</a></span></div>;
