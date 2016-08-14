@@ -66,11 +66,14 @@ ga('send', 'pageview');
     <script>
 // Send JavaScript errors to Google Analytics, thanks to https://davidwalsh.name/track-errors-google-analytics
 function trackJavaScriptError(e) {
-  var errMsg = e.message;
-  var errSrc = e.filename + ': ' + e.lineno;
-  ga('send', 'event', 'JavaScript Error', errMsg, errSrc, { 'nonInteraction': 1 });
+        var ie = window.event || {},
+            errMsg = e.message || ie.errorMessage;
+        var errSrc = (e.filename || ie.errorUrl) + ': ' + (e.lineno || ie.errorLine);
+        ga('send', 'exception', {
+            'exDescription': errSrc + ': ' + errMsg,
+            'exFatal': false
+        });
 }
-
 window.addEventListener('error', trackJavaScriptError, false);
     </script>
 </body>
