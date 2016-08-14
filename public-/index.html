@@ -65,15 +65,13 @@ ga('send', 'pageview');
     <script src="bundle.js"></script>
     <script>
 // Send JavaScript errors to Google Analytics, thanks to https://davidwalsh.name/track-errors-google-analytics
-window.addEventListener('error', function(error) {
-    _gaq.push([
-            '_trackEvent',
-            'JavaScript Error',
-            error.message,
-            error.filename + ':  ' + error.lineno,
-            true
-    ]);
-});
+function trackJavaScriptError(e) {
+  var errMsg = e.message;
+  var errSrc = e.filename + ': ' + e.lineno;
+  ga('send', 'event', 'JavaScript Error', errMsg, errSrc, { 'nonInteraction': 1 });
+}
+
+window.addEventListener('error', trackJavaScriptError, false);
     </script>
 </body>
 </head>

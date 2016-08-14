@@ -46,6 +46,11 @@ class AudioRecorder extends Component {
             this.setState({
                 audioRecordingIsSupported: false
             });
+
+            // send error to GA
+            window.ga('send', 'event', 'JavaScript Errors', 'getUserMedia Not Found', ' ', {
+                nonInteraction: true
+            });
             return;
         }
         navigator.getUserMedia({ audio: true }, (stream) => {
