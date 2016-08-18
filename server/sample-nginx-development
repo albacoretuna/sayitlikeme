@@ -1,0 +1,30 @@
+# this is a sample nginx file for running sayitlike.me in development
+
+upstream backend {
+
+    # Step 1. address it to where server.js is running
+    server 127.0.0.1:8000;
+    keepalive 8;
+}
+
+server {
+    listen 0.0.0.0:80;
+    server_name _;
+
+    # Step 2. Replace /home/omid/dev/sayitlikeme/public- with the path to your local public- folder
+    root /home/omid/dev/sayitlikeme/public-;
+
+
+    location / {
+        try_files $uri $uri/ @backend;
+    }
+    location @backend {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+
+        proxy_pass http://backend;
+        proxy_redirect off;
+    }
+}

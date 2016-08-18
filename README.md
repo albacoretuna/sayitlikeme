@@ -40,6 +40,7 @@ $ npm start # Shortcut to npm run dev and npm run server
 ```
 
 Now you need a web server to serve static files located at public- folder. It should be setup
-to proxy other requests to the nodejs you have already started at http://127.0.0.1:8000
+to proxy other requests to the nodejs you have already started at http://127.0.0.1:8000, a working sample for
+nginx configs is located in server/sample-nginx-development.
 
 After those steps you can start contributiong!
