@@ -43,4 +43,4 @@ Now you need a web server to serve static files located at public- folder. It sh
 to proxy other requests to the nodejs you have already started at http://127.0.0.1:8000, a working sample for
 nginx configs is located in server/sample-nginx-development.
 
-After those steps you can start contributiong!
+After those steps you can start contributing!
